@@ -1,49 +1,26 @@
-/* Base reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-html, body, #root {
-  height: 100%;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  background: #0b0d12;
-  color: #ffffff;
-}
+    <title>UltraVision AI — Private Preview</title>
+    <meta
+      name="description"
+      content="UltraVision AI — Next‑generation artificial intelligence vision technology. Private preview."
+    />
 
-/* Premium background */
-body {
-  background:
-    radial-gradient(
-      1200px 600px at 50% -200px,
-      rgba(90, 120, 255, 0.15),
-      transparent 60%
-    ),
-    radial-gradient(
-      800px 500px at 80% 120%,
-      rgba(120, 80, 255, 0.12),
-      transparent 60%
-    ),
-    linear-gradient(180deg, #0b0d12 0%, #07080c 100%);
-  position: relative;
-  overflow: hidden;
-}
+    <!-- Premium Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-/* Subtle grain */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>\
-<filter id='n'>\
-<feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/>\
-</filter>\
-<rect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/>\
-</svg>");
-  mix-blend-mode: soft-light;
-}
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
