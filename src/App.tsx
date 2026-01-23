@@ -26,7 +26,7 @@ export default function App() {
         {/* WORKING EMAIL FORM */}
         <form
           className="emailForm"
-          action="https://formspree.io/f/xxxxxxx"
+          action="https://formspree.io/f/mvzkqdna"
           method="POST"
         >
           <input
