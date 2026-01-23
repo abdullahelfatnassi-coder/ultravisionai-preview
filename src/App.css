@@ -1,117 +1,129 @@
-.scene {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    circle at 50% 40%,
-    #0c0f14,
-    #05070a 70%
-  );
-  color: #e6e6eb;
-  font-family: "Inter", system-ui, sans-serif;
+.app {
+  background: radial-gradient(circle at top, #0b0f1a, #05060a);
+  color: #eaeaf0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
   overflow: hidden;
 }
 
-.grain {
-  position: absolute;
+.intro {
+  position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: zoomOut 4s ease forwards;
+}
+
+.intro-title {
+  font-size: 3rem;
+  letter-spacing: 0.2em;
+}
+
+.intro-sub {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .content {
-  position: relative;
   max-width: 720px;
   margin: 0 auto;
-  padding: 12vh 24px;
-  text-align: center;
+  padding: 120px 24px;
+  animation: fadeIn 1.2s ease forwards;
 }
 
-.line {
-  font-size: 1.2rem;
-  letter-spacing: 0.02em;
-  margin-bottom: 1.2rem;
+h1 {
+  font-size: 3.2rem;
+  margin-bottom: 12px;
 }
 
-.dim {
+.tagline {
   opacity: 0.7;
+  margin-bottom: 32px;
 }
 
-.fade {
-  animation: fadeIn 1.8s ease forwards;
-}
-
-.title {
-  font-size: clamp(2.6rem, 6vw, 3.6rem);
-  font-weight: 600;
-  margin: 3rem 0 1rem;
-  letter-spacing: -0.02em;
-}
-
-.subtitle {
-  font-size: 1.05rem;
+.description {
+  opacity: 0.6;
   line-height: 1.6;
-  opacity: 0.8;
-  max-width: 520px;
-  margin: 0 auto 2.5rem;
+  margin-bottom: 48px;
 }
 
-.signals {
+.form {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-  opacity: 0.75;
-  margin-bottom: 3rem;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.emailForm {
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
+input {
+  flex: 1;
+  padding: 14px 16px;
+  background: #0f1424;
+  border: 1px solid #1d2542;
+  color: #fff;
+  border-radius: 8px;
 }
 
-.emailForm input {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 0.7rem 1rem;
-  color: white;
-  width: 260px;
-  outline: none;
-}
-
-.emailForm input::placeholder {
-  color: rgba(255,255,255,0.5);
-}
-
-.emailForm button {
-  background: white;
-  color: black;
-  border: none;
-  padding: 0.7rem 1.2rem;
+button {
+  padding: 14px 22px;
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.error {
+  width: 100%;
+  color: #ff6b6b;
+  margin-top: 8px;
 }
 
 .success {
-  margin-top: 2rem;
-  font-size: 0.95rem;
-  opacity: 0.85;
-  animation: fadeIn 1.4s ease;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.success span {
+  display: block;
+  opacity: 0.6;
+  margin-top: 6px;
 }
 
 footer {
-  margin-top: 4rem;
-  font-size: 0.7rem;
+  margin-top: 80px;
+  font-size: 0.75rem;
   opacity: 0.45;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
