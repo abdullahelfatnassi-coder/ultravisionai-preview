@@ -1,16 +1,9 @@
 :root {
-  --bg: #05070d;
+  --bg: radial-gradient(circle at top, #0b0f1a, #05070d 65%);
   --text: #eaeaf0;
-  --muted: #b8bccf;
+  --muted: #9aa0b8;
   --accent: #9aa4ff;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f6f7fb;
-    --text: #0a0c12;
-    --muted: #4a4f66;
-  }
+  --glass: rgba(255,255,255,0.06);
 }
 
 body {
@@ -18,6 +11,17 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(154,164,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(154,164,255,0.06), transparent 40%);
+  pointer-events: none;
 }
 
 .root {
@@ -31,14 +35,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
+  background: #05070d;
   z-index: 10;
   animation: zoomOut 2.6s forwards;
 }
 
 @keyframes zoomOut {
   0% {
-    transform: scale(1.2);
+    transform: scale(1.25);
     opacity: 1;
   }
   100% {
@@ -51,20 +55,27 @@ body {
 /* HERO */
 .hero {
   min-height: 100vh;
-  padding: 90px 24px;
+  padding: 100px 24px;
   text-align: center;
-  animation: fadeUp 1s ease forwards;
+  animation:
+    fadeUp 1s ease forwards,
+    float 9s ease-in-out infinite;
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* TYPING */
@@ -80,27 +91,32 @@ body {
 }
 
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 @keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+  50% { border-color: transparent; }
 }
 
+/* TITLE */
 h1 {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-size: clamp(2.7rem, 6vw, 3.9rem);
   margin: 22px 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff, #b9c0ff 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 4s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,100% { filter: drop-shadow(0 0 0 rgba(154,164,255,0)); }
+  50% { filter: drop-shadow(0 0 26px rgba(154,164,255,0.35)); }
 }
 
 p {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto 36px;
   color: var(--muted);
 }
@@ -109,64 +125,65 @@ p {
 .emailForm {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  animation: slideUp 0.8s ease forwards;
+  gap: 12px;
+  margin-top: 18px;
+  animation: formEnter 1s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
-@keyframes slideUp {
+@keyframes formEnter {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(32px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .emailForm input {
   padding: 14px 16px;
-  border-radius: 12px;
-  border: none;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: var(--glass);
+  color: var(--text);
   min-width: 240px;
   font-size: 0.95rem;
 }
 
+.emailForm input::placeholder {
+  color: #8f94ad;
+}
+
 .emailForm button {
-  padding: 14px 22px;
+  padding: 14px 24px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,255,255,0.18);
   background: transparent;
-  color: inherit;
+  color: var(--text);
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: transform .25s ease, background .25s ease;
 }
 
 .emailForm button:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.08);
 }
 
 /* SUCCESS */
 .success {
   font-size: 0.95rem;
   color: var(--accent);
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: rgba(154, 164, 255, 0.08);
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(154,164,255,0.1);
   animation: successGlow 1.2s ease forwards;
 }
 
 @keyframes successGlow {
-  0% {
-    box-shadow: 0 0 0 rgba(154, 164, 255, 0);
-  }
-  60% {
-    box-shadow: 0 0 24px rgba(154, 164, 255, 0.35);
-  }
-  100% {
-    box-shadow: 0 0 0 rgba(154, 164, 255, 0);
-  }
+  0% { box-shadow: 0 0 0 rgba(154,164,255,0); }
+  60% { box-shadow: 0 0 26px rgba(154,164,255,0.45); }
+  100% { box-shadow: 0 0 0 rgba(154,164,255,0); }
 }
 
 /* CONFETTI */
@@ -177,17 +194,13 @@ p {
   background-image:
     radial-gradient(circle, var(--accent) 2px, transparent 2px),
     radial-gradient(circle, #ffffff 2px, transparent 2px);
-  background-size: 24px 24px;
+  background-size: 26px 26px;
   animation: confettiFade 1.4s ease forwards;
 }
 
 @keyframes confettiFade {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* HONEYPOT */
