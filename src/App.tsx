@@ -6,6 +6,12 @@ export default function App() {
       <div className="grain" />
 
       <main className="container">
+        {/* Logo / Wordmark */}
+        <div className="logo">
+          <span className="logoMark">◉</span>
+          <span className="logoText">UltraVision AI</span>
+        </div>
+
         <span className="badge">COMING SOON · PREVIEW</span>
 
         <h1 className="title">UltraVision AI</h1>
@@ -16,15 +22,10 @@ export default function App() {
           final product.
         </p>
 
-        <p className="meta">
-          Invite‑only preview · Limited access
-        </p>
+        <p className="meta">Invite‑only preview · Limited access</p>
 
         {/* Email capture */}
-        <form
-          className="emailForm"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="emailForm" onSubmit={(e) => e.preventDefault()}>
           <input
             type="email"
             placeholder="Enter your email for early access"
@@ -36,9 +37,7 @@ export default function App() {
           </button>
         </form>
 
-        <p className="emailNote">
-          No spam. Early access invitations only.
-        </p>
+        <p className="emailNote">No spam. Early access invitations only.</p>
 
         <footer className="footer">
           Developed by Abdellah El Fatnassi · Preview build — system not yet
