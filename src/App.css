@@ -1,245 +1,106 @@
-/* ---------- Reset ---------- */
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+body {
   margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #0b0d12;
-  color: #eaeaf0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont,
-    "SF Pro Display", "Segoe UI", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: white;
 }
 
-/* ---------- Page ---------- */
 .page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(
-      1200px 600px at 50% -10%,
-      rgba(120, 140, 255, 0.08),
-      transparent 60%
-    ),
-    linear-gradient(180deg, #0b0d12 0%, #07080c 100%);
-  position: relative;
-  overflow: hidden;
+  padding: 20px;
 }
 
-/* ---------- Grain ---------- */
-.grain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  animation: grainMove 10s steps(6) infinite;
-}
-
-@keyframes grainMove {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-1.5%, 1.5%); }
-  100% { transform: translate(0, 0); }
-}
-
-/* ---------- Container ---------- */
-.container {
+.card {
   width: 100%;
-  max-width: 640px;
-  padding: 48px 28px;
+  max-width: 420px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px;
   text-align: center;
-  position: relative;
-  z-index: 2;
-  animation: fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  backdrop-filter: blur(20px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card.success {
+  animation: pop 0.4s ease;
 }
 
-/* ---------- Logo ---------- */
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 26px;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards;
-  animation-delay: 0.1s;
+@keyframes pop {
+  0% { transform: scale(0.96); }
+  100% { transform: scale(1); }
 }
 
-.logoMark {
-  font-size: 18px;
-  opacity: 0.85;
-}
-
-.logoText {
+h1 {
+  margin: 0;
+  font-size: 32px;
   font-weight: 600;
-  letter-spacing: 0.4px;
 }
 
-/* ---------- Badge ---------- */
-.badge {
-  display: inline-block;
-  margin-bottom: 22px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards;
-  animation-delay: 0.2s;
-}
-
-/* ---------- Title ---------- */
-.title {
-  font-size: clamp(36px, 6vw, 56px);
-  line-height: 1.04;
-  font-weight: 800;
-  margin: 0 0 18px;
-  letter-spacing: -0.025em;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.3s;
-}
-
-/* ---------- Text ---------- */
 .subtitle {
-  font-size: 16px;
-  line-height: 1.65;
-  color: #b8bccb;
-  margin-bottom: 14px;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.45s;
+  opacity: 0.7;
+  margin: 12px 0 30px;
 }
 
-.meta {
-  font-size: 14px;
-  color: #9aa0b5;
-  margin-bottom: 34px;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.55s;
-}
-
-/* ---------- Email ---------- */
 .emailForm {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.65s;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.emailInput {
-  flex: 1;
+input {
   padding: 14px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  font-size: 14px;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-size: 16px;
 }
 
-.emailInput:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.emailInput:focus {
+input:focus {
   outline: none;
-  border-color: rgba(140, 160, 255, 0.7);
+  border-color: white;
 }
 
-/* ---------- Button ---------- */
-.primary {
-  padding: 14px 18px;
+button {
+  padding: 14px;
   border-radius: 12px;
   border: none;
-  cursor: pointer;
-  font-size: 14px;
+  background: white;
+  color: black;
   font-weight: 600;
-  background: linear-gradient(135deg, #7a8cff, #5f6bff);
-  color: #fff;
-  transition: transform 0.2s ease, box-shadow 0.25s ease;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
-.primary:hover {
-  transform: translateY(-1px) scale(1.01);
-  box-shadow: 0 14px 36px rgba(95, 107, 255, 0.35);
+button:hover {
+  transform: translateY(-1px);
 }
 
-/* ---------- Footer ---------- */
-.emailNote {
-  font-size: 12px;
-  color: #8f94aa;
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.8s;
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.footer {
-  font-size: 12px;
-  color: #7d8296;
-  line-height: 1.5;
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.9s;
+.error {
+  margin-top: 14px;
+  color: #ff6b6b;
+  font-size: 14px;
 }
 
-/* ---------- Mobile ---------- */
-@media (max-width: 520px) {
-  .emailForm {
-    flex-direction: column;
-  }
-
-  .primary {
-    width: 100%;
-  }
-
-  .container {
-    padding: 40px 22px;
-  }
-}
-.success {
-  margin-top: 16px;
-  font-size: 15px;
-  color: #aeb4ff;
-  animation: successPop 0.4s ease-out;
+.thankYou h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 
-@keyframes successPop {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.thankYou p {
+  opacity: 0.7;
 }
