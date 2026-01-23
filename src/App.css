@@ -1,168 +1,187 @@
-/* ===== Global Reset ===== */
-* {
-  margin: 0;
-  padding: 0;
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
   height: 100%;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Inter, Roboto, Helvetica, Arial, sans-serif;
-  background: #0b0d10;
-  color: #eaeaea;
+  background: #0b0d12;
+  color: #eaeaf0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter",
+    "SF Pro Display", "Segoe UI", sans-serif;
 }
 
-/* ===== App Container ===== */
-.app {
+/* ---------- Page ---------- */
+.page {
   min-height: 100vh;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 20px;
   background:
     radial-gradient(
-      1200px 600px at 50% -200px,
-      rgba(120, 140, 255, 0.12),
+      1200px 600px at 50% -10%,
+      rgba(120, 140, 255, 0.08),
       transparent 60%
     ),
-    linear-gradient(180deg, #0b0d10 0%, #07080b 100%);
+    linear-gradient(180deg, #0b0d12 0%, #07080c 100%);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle grain texture */
-.app::before {
-  content: "";
+/* ---------- Grain Overlay ---------- */
+.grain {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }
 
-/* ===== Card ===== */
-.card {
-  max-width: 760px;
+/* ---------- Container ---------- */
+.container {
   width: 100%;
+  max-width: 640px;
+  padding: 48px 28px;
   text-align: center;
-  padding: 64px 48px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0.02)
-  );
-  border-radius: 20px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 40px 120px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 2;
 }
 
-/* ===== Badge ===== */
+/* ---------- Logo ---------- */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.logoMark {
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+.logoText {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- Badge ---------- */
 .badge {
   display: inline-block;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   padding: 6px 14px;
-  font-size: 12px;
+  border-radius: 999px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #b6c2ff;
-  border: 1px solid rgba(182, 194, 255, 0.35);
-  border-radius: 999px;
-  background: rgba(182, 194, 255, 0.08);
-}
-
-/* ===== Title ===== */
-.title {
-  font-size: clamp(40px, 6vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #cfd6ff 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ===== Subtitle ===== */
-.subtitle {
-  font-size: clamp(16px, 2.4vw, 18px);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 640px;
-  margin: 0 auto 36px;
-}
-
-/* ===== Actions ===== */
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.primary-btn {
-  padding: 14px 28px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #0b0d10;
-  background: linear-gradient(180deg, #cfd6ff, #9aa8ff);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 12px 40px rgba(154, 168, 255, 0.35);
-}
-
-.primary-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 60px rgba(154, 168, 255, 0.45);
-}
-
-.secondary-btn {
-  padding: 14px 28px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.secondary-btn:hover {
   background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* ===== Footer ===== */
+/* ---------- Title ---------- */
+.title {
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.05;
+  font-weight: 700;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Text ---------- */
+.subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #b8bccb;
+  margin-bottom: 14px;
+}
+
+.meta {
+  font-size: 14px;
+  color: #9aa0b5;
+  margin-bottom: 32px;
+}
+
+/* ---------- Email Form ---------- */
+.emailForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.emailInput {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.emailInput::placeholder {
+  color: #8f94aa;
+}
+
+.emailInput:focus {
+  border-color: rgba(140, 160, 255, 0.6);
+}
+
+/* ---------- Button ---------- */
+.primary {
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(
+    135deg,
+    #7a8cff,
+    #5f6bff
+  );
+  color: #fff;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* ---------- Email Note ---------- */
+.emailNote {
+  font-size: 12px;
+  color: #8f94aa;
+  margin-bottom: 32px;
+}
+
+/* ---------- Footer ---------- */
 .footer {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
+  color: #7d8296;
+  line-height: 1.5;
 }
 
-/* ===== Mobile Adjustments ===== */
-@media (max-width: 640px) {
-  .card {
-    padding: 44px 26px;
-  }
-
-  .actions {
+/* ---------- Mobile ---------- */
+@media (max-width: 520px) {
+  .emailForm {
     flex-direction: column;
   }
 
-  .primary-btn,
-  .secondary-btn {
+  .primary {
     width: 100%;
+  }
+
+  .container {
+    padding: 40px 22px;
   }
 }
