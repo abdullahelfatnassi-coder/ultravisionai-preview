@@ -8,15 +8,28 @@ export default function App() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const timer = setTimeout(() => setIntroDone(true), 4200);
-    return () => clearTimeout(timer);
+    // intro timing
+    const t = setTimeout(() => setIntroDone(true), 2600);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    // subtle parallax
+    const move = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 8;
+      const y = (e.clientY / window.innerHeight - 0.5) * 8;
+      document.documentElement.style.setProperty("--px", `${x}px`);
+      document.documentElement.style.setProperty("--py", `${y}px`);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
   }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Enter a valid email address.");
       return;
     }
@@ -27,42 +40,44 @@ export default function App() {
       body: JSON.stringify({ email }),
     });
 
-    if (res.ok) setSent(true);
-    else setError("Something went wrong. Try again.");
+    if (res.ok) {
+      if (navigator.vibrate) navigator.vibrate(20);
+      setSent(true);
+    } else {
+      setError("Something went wrong. Try again.");
+    }
   };
 
   return (
     <div className="app">
       {!introDone && (
         <div className="intro">
-          <div className="intro-title">ULTRAVISION AI</div>
+          <div className="intro-logo">ULTRAVISION AI</div>
           <div className="intro-sub">INITIALIZING PREVIEW</div>
         </div>
       )}
 
       {introDone && (
         <main className="content">
-          <h1>Ultravision AI</h1>
-          <p className="tagline">
-            A preview of an artificial intelligence system currently in
-            development.
-          </p>
+          <p className="eyebrow">COMING SOON · PREVIEW</p>
+
+          <h1 className="title reveal">Ultravision AI</h1>
 
           <p className="description">
-            Ultravision explores real‑time perception — understanding voice,
-            vision, and context together. This preview represents direction,
-            not the final product.
+            A preview of an artificial intelligence system currently in
+            development. This experience represents vision and direction — not
+            the final product.
           </p>
 
           {!sent ? (
-            <form onSubmit={submit} className="form">
+            <form className="form" onSubmit={submit}>
               <input
                 type="email"
-                placeholder="Request private preview"
+                placeholder="Request private access"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button type="submit">Request Access</button>
+              <button type="submit">Request</button>
               {error && <span className="error">{error}</span>}
             </form>
           ) : (
@@ -73,9 +88,9 @@ export default function App() {
           )}
 
           <footer>
-            Invite‑only preview · Limited access  
+            Invite‑only preview · Limited access
             <br />
-            <span>Developer: Abdellah El Fatnassi</span>
+            Developer: Abdellah El Fatnassi
           </footer>
         </main>
       )}
