@@ -226,3 +226,20 @@ body,
     padding: 40px 22px;
   }
 }
+.success {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #aeb4ff;
+  animation: successPop 0.4s ease-out;
+}
+
+@keyframes successPop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
