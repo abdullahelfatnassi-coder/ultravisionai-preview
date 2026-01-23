@@ -7,8 +7,8 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setIntro(false), 2600);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setIntro(false), 2600);
+    return () => clearTimeout(timer);
   }, []);
 
   function haptic() {
@@ -29,7 +29,7 @@ export default function App() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // honeypot spam protection
+    // Honeypot spam protection
     if (data.get("company")) {
       setLoading(false);
       return;
@@ -66,15 +66,28 @@ export default function App() {
           <h1>Ultravision AI</h1>
 
           <p>
-            A preview of an upcoming artificial intelligence system currently in
-            development. This experience represents vision and direction — not
-            the final product.
-            <br />
-            <strong>Invite‑only preview · Limited access</strong>
+            Ultravision AI is an early preview of an artificial intelligence
+            system designed to understand the world as it happens — through
+            vision, sound, and context.
+            <br /><br />
+            The system explores live recording with intelligent note creation,
+            photo and scene analysis, and adaptive reasoning powered by verified,
+            real‑world sources. Rather than producing noise, Ultravision AI is
+            built around clarity, structure, and trust.
+            <br /><br />
+            This experience represents direction and capability — not a finished
+            product. <strong>Invite‑only access is intentionally limited.</strong>
           </p>
 
+          <div className="capabilities">
+            <span>• Live audio recording → structured notes & summaries</span>
+            <span>• Photo and visual scene analysis with contextual understanding</span>
+            <span>• Cross‑referenced intelligence from trusted real‑world sources</span>
+            <span>• Privacy‑first design with human‑readable reasoning</span>
+          </div>
+
           <form className="emailForm" onSubmit={handleSubmit}>
-            {/* honeypot */}
+            {/* Honeypot field */}
             <input
               type="text"
               name="company"
@@ -89,7 +102,7 @@ export default function App() {
                   type="email"
                   name="email"
                   required
-                  placeholder="Enter your email"
+                  placeholder="Enter your email for private access"
                 />
                 <button type="submit" disabled={loading}>
                   {loading ? "Sending…" : "Request Access"}
@@ -97,10 +110,18 @@ export default function App() {
               </>
             ) : (
               <div className="success">
-                Thank you — your request has been sent
+                Thank you — your request has been received.
               </div>
             )}
           </form>
+
+          <p className="micro">
+            Built to augment human perception — not replace it.
+          </p>
+
+          <footer className="footer">
+            Developed by <strong>Abdellah El Fatnassi</strong>
+          </footer>
         </main>
       )}
     </div>
