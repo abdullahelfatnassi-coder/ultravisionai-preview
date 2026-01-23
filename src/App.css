@@ -25,22 +25,16 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 24px;
   overflow: hidden;
 
   background:
     radial-gradient(1000px 600px at 10% -20%, rgba(130, 140, 255, 0.28), transparent 60%),
     radial-gradient(800px 500px at 90% 130%, rgba(90, 220, 200, 0.18), transparent 65%),
     linear-gradient(180deg, #04050c 0%, #020308 100%);
-
-  animation: ambientShift 26s ease-in-out infinite alternate;
 }
 
-@keyframes ambientShift {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(-10deg); }
-}
-
-/* Soft light sweep */
+/* Light motion */
 .page::before {
   content: "";
   position: absolute;
@@ -55,10 +49,10 @@ body,
 
 @keyframes lightDrift {
   from { transform: translate(-6%, -4%); }
-  to   { transform: translate(6%, 4%); }
+  to { transform: translate(6%, 4%); }
 }
 
-/* Film grain */
+/* Grain */
 .grain {
   position: absolute;
   inset: 0;
@@ -67,21 +61,20 @@ body,
   opacity: 0.45;
 }
 
-/* ===== GLASS PANEL ===== */
+/* ===== CONTAINER ===== */
 .container {
   position: relative;
   z-index: 2;
+  width: 100%;
   max-width: 860px;
   padding: 88px 64px;
   text-align: center;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.10),
-      rgba(255, 255, 255, 0.03)
-    );
-
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.03)
+  );
   backdrop-filter: blur(28px) saturate(120%);
   border-radius: 32px;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -90,23 +83,17 @@ body,
     0 60px 160px rgba(0, 0, 0, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
-  animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fadeUp 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ===== LOGO ===== */
 .logo {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 12px;
   margin-bottom: 28px;
   font-family: "DM Sans", sans-serif;
-}
-
-.logoMark {
-  font-size: 18px;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 14px rgba(130,140,255,0.5));
 }
 
 .logoText {
@@ -119,7 +106,7 @@ body,
 /* ===== BADGE ===== */
 .badge {
   display: inline-block;
-  margin-bottom: 38px;
+  margin-bottom: 36px;
   padding: 7px 20px;
   font-size: 11px;
   letter-spacing: 0.24em;
@@ -127,16 +114,15 @@ body,
   color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
-  backdrop-filter: blur(10px);
 }
 
 /* ===== TITLE ===== */
 .title {
   font-family: "DM Sans", sans-serif;
-  font-size: clamp(46px, 6vw, 72px);
+  font-size: clamp(36px, 7vw, 72px);
   font-weight: 500;
   letter-spacing: -0.03em;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 
   text-shadow:
     0 0 40px rgba(140, 150, 255, 0.45),
@@ -145,88 +131,64 @@ body,
 
 /* ===== TEXT ===== */
 .subtitle {
-  font-size: 18px;
+  font-size: clamp(15px, 3.5vw, 18px);
   line-height: 1.8;
   color: rgba(255, 255, 255, 0.75);
   max-width: 640px;
-  margin: 0 auto 36px;
+  margin: 0 auto 34px;
 }
 
 .meta {
-  font-size: 13px;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 50px;
+  margin-bottom: 46px;
 }
 
 /* ===== EMAIL ===== */
 .emailForm {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 14px;
 }
 
 .emailInput {
+  width: 100%;
+  max-width: 320px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  padding: 16px 24px;
+  padding: 16px 22px;
   color: white;
   font-size: 14px;
-  min-width: 300px;
   outline: none;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-.emailInput:focus {
-  border-color: rgba(150, 160, 255, 0.7);
-  box-shadow: 0 0 0 8px rgba(120, 130, 255, 0.15);
 }
 
 .emailInput::placeholder {
   color: rgba(255, 255, 255, 0.45);
 }
 
-/* ===== BUTTON ===== */
-button {
-  appearance: none;
-  border: none;
-  border-radius: 999px;
+/* Button */
+button.primary {
   padding: 16px 34px;
+  border-radius: 999px;
+  border: none;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.05em;
-  cursor: default;
-
-  transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.25s ease;
-}
-
-button.primary {
   background: linear-gradient(135deg, #b1bbff, #6f7bff);
   color: #04050a;
-  box-shadow:
-    0 22px 70px rgba(120, 130, 255, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  box-shadow: 0 22px 70px rgba(120, 130, 255, 0.55);
 }
 
-button.primary:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 32px 90px rgba(120, 130, 255, 0.7);
-  opacity: 0.97;
-}
-
-/* ===== FOOTER ===== */
+/* Footer */
 .emailNote {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 72px;
+  margin-bottom: 60px;
 }
 
 .footer {
@@ -236,11 +198,32 @@ button.primary:hover {
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* ===== ANIMATION ===== */
+/* ===== MOBILE ===== */
+@media (max-width: 640px) {
+  .container {
+    padding: 56px 24px;
+    border-radius: 22px;
+  }
+
+  .badge {
+    margin-bottom: 28px;
+  }
+
+  .emailForm {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button.primary {
+    width: 100%;
+  }
+}
+
+/* Animation */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
