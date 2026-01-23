@@ -1,80 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-export default function App() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+function App() {
+  const [showIntro, setShowIntro] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
+  useEffect(() => {
+    // Intro duration
+    const introTimer = setTimeout(() => {
+      setShowIntro(false);
+      setShowContent(true);
+    }, 2800);
 
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const res = await fetch("https://formspree.io/f/mvzkqdna", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (res.ok) {
-        setSubmitted(true);
-
-        // 📳 VIBRATION (mobile only, supported browsers)
-        if (navigator.vibrate) {
-          navigator.vibrate(40);
-        }
-      } else {
-        setError("Something went wrong. Try again.");
-      }
-    } catch {
-      setError("Network error. Try again.");
-    }
-
-    setLoading(false);
-  }
+    return () => clearTimeout(introTimer);
+  }, []);
 
   return (
-    <div className="page">
-      <div className={`card ${submitted ? "success" : ""}`}>
-        {!submitted ? (
-          <>
-            <h1>UltraVision AI</h1>
-            <p className="subtitle">
-              Invite‑only preview · Limited access
-            </p>
+    <div className="appRoot">
+      {showIntro && (
+        <div className="introScreen">
+          <h1>Welcome to Ultravision AI</h1>
+        </div>
+      )}
 
-            <form onSubmit={handleSubmit} className="emailForm">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+      {showContent && (
+        <main className="mainContent">
+          <span className="previewBadge">COMING SOON · PREVIEW</span>
 
-              <button type="submit" disabled={loading}>
-                {loading ? "Sending..." : "Request Access"}
-              </button>
-            </form>
+          <h1 className="title">Ultravision AI</h1>
 
-            {error && <p className="error">{error}</p>}
-          </>
-        ) : (
-          <div className="thankYou">
-            <h2>✓ Request Sent</h2>
-            <p>Thank you. We’ll be in touch soon.</p>
-          </div>
-        )}
-      </div>
+          <p className="subtitle">
+            A preview of an upcoming artificial intelligence system currently in
+            development. This experience represents vision and direction — not
+            the final product.
+          </p>
+
+          <p className="meta">
+            Invite‑only preview · Limited access
+          </p>
+
+          <button className="cta">
+            Join Private Preview
+          </button>
+        </main>
+      )}
     </div>
   );
 }
+
+export default App;
