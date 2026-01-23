@@ -11,7 +11,7 @@ export default function App() {
   }, []);
 
   function haptic() {
-    if (navigator.vibrate) navigator.vibrate(10);
+    if ("vibrate" in navigator) navigator.vibrate(10);
   }
 
   function confetti() {
@@ -27,6 +27,12 @@ export default function App() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    // Honeypot spam protection
+    if (data.get("company")) {
+      setLoading(false);
+      return;
+    }
 
     const res = await fetch("https://formspree.io/f/mvzkqdna", {
       method: "POST",
@@ -62,9 +68,20 @@ export default function App() {
             A preview of an upcoming artificial intelligence system currently in
             development. This experience represents vision and direction — not
             the final product.
+            <br />
+            <strong>Invite‑only preview · Limited access</strong>
           </p>
 
-          <form className={`emailForm ${submitted ? "done" : ""}`} onSubmit={handleSubmit}>
+          <form className="emailForm" onSubmit={handleSubmit}>
+            {/* Honeypot (hidden spam trap) */}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              className="honeypot"
+            />
+
             {!submitted ? (
               <>
                 <input
@@ -74,12 +91,16 @@ export default function App() {
                   placeholder="Enter your email"
                 />
                 <button type="submit" disabled={loading}>
-                  {loading ? "Sending…" : "Request Access"}
+                  {loading ? "Sending…" : "Join Private Preview"}
                 </button>
               </>
             ) : (
               <div className="success">
-                Thank you — your request has been sent
+            Thank you for requesting access to Ultravision AI.
+This preview represents an early look at a system currently in development.
+If selected, you’ll receive a private invitation.
+
+— Ultravision AI
               </div>
             )}
           </form>
