@@ -7,7 +7,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIntro(false), 2600);
+    const timer = setTimeout(() => setIntro(false), 3200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -54,8 +54,9 @@ export default function App() {
   return (
     <div className="root">
       {intro && (
-        <div className="intro">
-          <h1>Welcome to Ultravision AI</h1>
+        <div className="intro cinematic">
+          <h1>Ultravision AI</h1>
+          <span>Perception · Intelligence · Context</span>
         </div>
       )}
 
@@ -72,22 +73,47 @@ export default function App() {
             <br /><br />
             The system explores live recording with intelligent note creation,
             photo and scene analysis, and adaptive reasoning powered by verified,
-            real‑world sources. Rather than producing noise, Ultravision AI is
-            built around clarity, structure, and trust.
+            real‑world sources.
             <br /><br />
-            This experience represents direction and capability — not a finished
+            This preview represents direction and capability — not a finished
             product. <strong>Invite‑only access is intentionally limited.</strong>
           </p>
 
-          <div className="capabilities">
-            <span>• Live audio recording → structured notes & summaries</span>
-            <span>• Photo and visual scene analysis with contextual understanding</span>
-            <span>• Cross‑referenced intelligence from trusted real‑world sources</span>
-            <span>• Privacy‑first design with human‑readable reasoning</span>
-          </div>
+          {/* HOW IT WORKS */}
+          <section className="section">
+            <h2>How it works</h2>
+            <div className="steps">
+              <span>1. Capture — audio, images, or moments in real time</span>
+              <span>2. Understand — context is analyzed, not just transcribed</span>
+              <span>3. Structure — insights become notes, summaries, and meaning</span>
+              <span>4. Reference — information is cross‑checked with real sources</span>
+            </div>
+          </section>
 
+          {/* CAPABILITIES */}
+          <section className="section">
+            <h2>Capabilities preview</h2>
+            <div className="capabilities">
+              <span>• Live audio recording → structured notes & summaries</span>
+              <span>• Photo and visual scene analysis with contextual understanding</span>
+              <span>• Cross‑referenced intelligence from trusted sources</span>
+              <span>• Privacy‑first design with transparent reasoning</span>
+            </div>
+          </section>
+
+          {/* ROADMAP */}
+          <section className="section">
+            <h2>Development roadmap</h2>
+            <div className="roadmap">
+              <span><strong>Phase 1</strong> · Core perception & capture</span>
+              <span><strong>Phase 2</strong> · Cross‑modal understanding</span>
+              <span><strong>Phase 3</strong> · Personal intelligence layers</span>
+              <span><strong>Phase 4</strong> · Expanded real‑world integrations</span>
+            </div>
+          </section>
+
+          {/* FORM */}
           <form className="emailForm" onSubmit={handleSubmit}>
-            {/* Honeypot field */}
             <input
               type="text"
               name="company"
@@ -115,11 +141,19 @@ export default function App() {
             )}
           </form>
 
-          <p className="micro">
-            Built to augment human perception — not replace it.
-          </p>
+          {/* LEGAL / PRIVACY */}
+          <section className="legal">
+            <p>
+              Ultravision AI is an experimental preview. No personal data is sold
+              or shared. Submissions are used solely to manage preview access and
+              product updates. Features and capabilities may change as
+              development progresses.
+            </p>
+          </section>
 
           <footer className="footer">
+            Built to augment human perception — not replace it.
+            <br />
             Developed by <strong>Abdellah El Fatnassi</strong>
           </footer>
         </main>
