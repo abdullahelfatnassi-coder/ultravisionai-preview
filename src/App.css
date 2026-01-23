@@ -1,24 +1,23 @@
 :root {
-  --bg-dark: #05070d;
-  --bg-light: #f5f6fa;
-  --text-dark: #0a0c12;
-  --text-light: #eaeaf0;
+  --bg: #05070d;
+  --text: #eaeaf0;
+  --muted: #b8bccf;
   --accent: #9aa4ff;
 }
 
 @media (prefers-color-scheme: light) {
-  body {
-    background: var(--bg-light);
-    color: var(--text-dark);
+  :root {
+    --bg: #f6f7fb;
+    --text: #0a0c12;
+    --muted: #4a4f66;
   }
 }
 
 body {
   margin: 0;
-  background: var(--bg-dark);
-  color: var(--text-light);
-  font-family: Inter, system-ui;
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system;
 }
 
 .root {
@@ -32,7 +31,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-dark);
+  background: var(--bg);
   animation: zoomOut 2.6s forwards;
   z-index: 10;
 }
@@ -45,92 +44,86 @@ body {
 /* HERO */
 .hero {
   min-height: 100vh;
-  padding: 80px 24px;
+  padding: 90px 24px;
   text-align: center;
   animation: fadeUp 1s ease forwards;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .typing {
   display: inline-block;
-  overflow: hidden;
   white-space: nowrap;
+  overflow: hidden;
   border-right: 2px solid;
-  animation: typing 2.2s steps(22), blink 0.7s infinite;
   letter-spacing: 0.18em;
-  color: var(--accent);
   font-size: 0.75rem;
+  color: var(--accent);
+  animation: typing 2.2s steps(22), blink 0.7s infinite;
 }
 
 @keyframes typing { from { width: 0 } to { width: 100% } }
 @keyframes blink { 50% { border-color: transparent } }
 
 h1 {
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
-  margin: 24px 0;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  margin: 22px 0;
 }
 
 p {
   max-width: 620px;
   margin: 0 auto 36px;
-  color: #b8bccf;
+  color: var(--muted);
 }
 
-.cta {
-  padding: 14px 28px;
+/* FORM */
+.emailForm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.emailForm input {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: none;
+  min-width: 240px;
+  font-size: 0.95rem;
+}
+
+.emailForm button {
+  padding: 14px 22px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.2);
   background: transparent;
   color: inherit;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.25s ease;
 }
 
-.cta:hover {
+.emailForm button:hover {
   transform: translateY(-1px);
   background: rgba(255,255,255,0.06);
-}
-
-/* INVITE */
-.inviteGate {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.inviteGate input {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-}
-
-/* FORM SLIDE */
-.emailForm {
-  margin-top: 24px;
-  transform: translateY(40px);
-  opacity: 0;
-  transition: 0.6s ease;
-}
-
-.emailForm.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.emailForm input {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  margin-right: 8px;
 }
 
 .success {
   font-size: 0.95rem;
   color: var(--accent);
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* CONFETTI */
@@ -139,8 +132,8 @@ p {
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle, #9aa4ff 2px, transparent 2px),
-    radial-gradient(circle, #fff 2px, transparent 2px);
+    radial-gradient(circle, var(--accent) 2px, transparent 2px),
+    radial-gradient(circle, #ffffff 2px, transparent 2px);
   background-size: 24px 24px;
   animation: confetti 1.4s ease forwards;
 }
