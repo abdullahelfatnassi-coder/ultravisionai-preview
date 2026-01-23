@@ -7,11 +7,12 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIntro(false), 2600);
+    const t = setTimeout(() => setIntro(false), 2600);
+    return () => clearTimeout(t);
   }, []);
 
   function haptic() {
-    if ("vibrate" in navigator) navigator.vibrate(10);
+    if ("vibrate" in navigator) navigator.vibrate(12);
   }
 
   function confetti() {
@@ -28,7 +29,7 @@ export default function App() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // Honeypot spam protection
+    // honeypot spam protection
     if (data.get("company")) {
       setLoading(false);
       return;
@@ -73,7 +74,7 @@ export default function App() {
           </p>
 
           <form className="emailForm" onSubmit={handleSubmit}>
-            {/* Honeypot (hidden spam trap) */}
+            {/* honeypot */}
             <input
               type="text"
               name="company"
@@ -91,16 +92,12 @@ export default function App() {
                   placeholder="Enter your email"
                 />
                 <button type="submit" disabled={loading}>
-                  {loading ? "Sending…" : "Join Private Preview"}
+                  {loading ? "Sending…" : "Request Access"}
                 </button>
               </>
             ) : (
               <div className="success">
-            Thank you for requesting access to Ultravision AI.
-This preview represents an early look at a system currently in development.
-If selected, you’ll receive a private invitation.
-
-— Ultravision AI
+                Thank you — your request has been sent
               </div>
             )}
           </form>
