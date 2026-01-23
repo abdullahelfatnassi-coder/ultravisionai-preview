@@ -3,38 +3,45 @@ import "./App.css";
 
 export default function App() {
   const [intro, setIntro] = useState(true);
-  const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [invite, setInvite] = useState("");
-  const [inviteOK, setInviteOK] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setIntro(false), 2600);
   }, []);
 
   function haptic() {
-    if (navigator.vibrate) navigator.vibrate(12);
-  }
-
-  function handleInvite() {
-    if (invite.trim().length >= 6) {
-      setInviteOK(true);
-      haptic();
-    }
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitted(true);
-    haptic();
-    confetti();
+    if (navigator.vibrate) navigator.vibrate(10);
   }
 
   function confetti() {
-    const c = document.createElement("div");
-    c.className = "confetti";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 1400);
+    const el = document.createElement("div");
+    el.className = "confetti";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1400);
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/mvzkqdna", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" }
+    });
+
+    setLoading(false);
+
+    if (res.ok) {
+      setSubmitted(true);
+      haptic();
+      confetti();
+      form.reset();
+    }
   }
 
   return (
@@ -57,42 +64,25 @@ export default function App() {
             the final product.
           </p>
 
-          {!inviteOK ? (
-            <div className="inviteGate">
-              <input
-                placeholder="Invite code"
-                value={invite}
-                onChange={(e) => setInvite(e.target.value)}
-              />
-              <button onClick={handleInvite}>Unlock Preview</button>
-            </div>
-          ) : (
-            <>
-              <button className="cta" onClick={() => setShowForm(true)}>
-                Join Private Preview
-              </button>
-
-              <form
-                className={`emailForm ${showForm ? "show" : ""}`}
-                onSubmit={handleSubmit}
-              >
-                {!submitted ? (
-                  <>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@email.com"
-                    />
-                    <button type="submit">Request Access</button>
-                  </>
-                ) : (
-                  <div className="success">
-                    Thank you — your request has been sent
-                  </div>
-                )}
-              </form>
-            </>
-          )}
+          <form className={`emailForm ${submitted ? "done" : ""}`} onSubmit={handleSubmit}>
+            {!submitted ? (
+              <>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email"
+                />
+                <button type="submit" disabled={loading}>
+                  {loading ? "Sending…" : "Request Access"}
+                </button>
+              </>
+            ) : (
+              <div className="success">
+                Thank you — your request has been sent
+              </div>
+            )}
+          </form>
         </main>
       )}
     </div>
