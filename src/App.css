@@ -1,18 +1,22 @@
+/* Reset */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-  margin: 0;
+  width: 100%;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Inter, Helvetica, Arial, sans-serif;
-  background: #050507;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #07080c;
   color: #ffffff;
 }
 
+/* Page background */
 .page {
   position: relative;
   min-height: 100%;
@@ -21,104 +25,123 @@ body,
   justify-content: center;
   background:
     radial-gradient(
-      1200px 600px at 50% -10%,
-      rgba(120, 120, 255, 0.15),
+      1200px 600px at 50% -15%,
+      rgba(120, 130, 255, 0.18),
       transparent 60%
     ),
     radial-gradient(
-      800px 400px at 80% 120%,
-      rgba(0, 255, 200, 0.08),
+      900px 500px at 85% 120%,
+      rgba(80, 200, 180, 0.1),
       transparent 60%
     ),
-    #050507;
+    linear-gradient(180deg, #07080c 0%, #040509 100%);
+  overflow: hidden;
 }
 
+/* Grain overlay */
 .grain {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
 }
 
-.content {
+/* Main container */
+.container {
   position: relative;
   z-index: 1;
-  max-width: 720px;
-  padding: 64px 32px;
+  max-width: 760px;
+  padding: 72px 32px;
   text-align: center;
 }
 
+/* Badge */
 .badge {
   display: inline-block;
-  margin-bottom: 24px;
-  padding: 6px 14px;
+  margin-bottom: 32px;
+  padding: 6px 16px;
   font-size: 12px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
 }
 
-h1 {
-  margin: 0 0 20px;
-  font-size: clamp(40px, 6vw, 64px);
+/* Title */
+.title {
+  font-size: clamp(42px, 6vw, 64px);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  text-shadow:
+    0 0 40px rgba(120, 130, 255, 0.25),
+    0 0 80px rgba(90, 100, 255, 0.15);
 }
 
+/* Description */
 .subtitle {
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 28px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 32px;
 }
 
+/* Meta line */
 .meta {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 44px;
 }
 
+/* Actions */
 .actions {
   display: flex;
   gap: 14px;
   justify-content: center;
-  margin-bottom: 56px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
 }
 
 button {
   appearance: none;
   border: none;
   border-radius: 999px;
-  padding: 12px 22px;
+  padding: 14px 28px;
   font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-weight: 500;
+  cursor: default;
+  transition: all 0.25s ease;
 }
 
+/* Primary button */
 button.primary {
-  background: white;
-  color: black;
+  background: linear-gradient(135deg, #9aa7ff, #6f7bff);
+  color: #05060a;
+  box-shadow: 0 14px 48px rgba(120, 130, 255, 0.35);
 }
 
 button.primary:hover {
   transform: translateY(-1px);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
+/* Secondary button */
 button.secondary {
   background: transparent;
-  color: white;
+  color: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 button.secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-footer {
+/* Footer */
+.footer {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
 }
