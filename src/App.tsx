@@ -1,6 +1,34 @@
+import { useState } from "react";
 import "./App.css";
 
 export default function App() {
+  const [submitted, setSubmitted] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const res = await fetch("https://formspree.io/f/mvzkqdna", {
+      method: "POST",
+      body: data,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      // Small vibration on supported devices (phones)
+      if (navigator.vibrate) {
+        navigator.vibrate(30);
+      }
+
+      setSubmitted(true);
+      form.reset();
+    }
+  }
+
   return (
     <div className="page">
       <div className="grain" />
@@ -23,28 +51,26 @@ export default function App() {
 
         <p className="meta">Invite‑only preview · Limited access</p>
 
-        {/* WORKING EMAIL FORM */}
-        <form
-          className="emailForm"
-          action="https://formspree.io/f/mvzkqdna"
-          method="POST"
-        >
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email for early access"
-            className="emailInput"
-            required
-          />
+        {!submitted ? (
+          <form className="emailForm" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email for early access"
+              className="emailInput"
+              required
+            />
+            <button className="primary" type="submit">
+              Request Access
+            </button>
+          </form>
+        ) : (
+          <p className="success">
+            Thank you — your request has been sent.
+          </p>
+        )}
 
-          <button className="primary" type="submit">
-            Request Access
-          </button>
-        </form>
-
-        <p className="emailNote">
-          No spam. Early access invitations only.
-        </p>
+        <p className="emailNote">No spam. Early access invitations only.</p>
 
         <footer className="footer">
           Developed by Abdellah El Fatnassi · Preview build — system not yet
