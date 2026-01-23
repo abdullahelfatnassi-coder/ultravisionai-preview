@@ -2,101 +2,83 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [phase, setPhase] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const timings = [1200, 2800, 4400, 6200];
-    const timers = timings.map((t, i) =>
-      setTimeout(() => setPhase(i + 1), t)
-    );
-    return () => timers.forEach(clearTimeout);
+    const timer = setTimeout(() => setIntroDone(true), 4200);
+    return () => clearTimeout(timer);
   }, []);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const form = e.currentTarget;
+    setError("");
 
-    const res = await fetch(form.action, {
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setError("Enter a valid email address.");
+      return;
+    }
+
+    const res = await fetch("https://formspree.io/f/mvzkqdna", {
       method: "POST",
-      body: new FormData(form),
-      headers: { Accept: "application/json" },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
     });
 
-    if (res.ok) {
-      if (navigator.vibrate) navigator.vibrate(20);
-      setSubmitted(true);
-      form.reset();
-    }
-  }
+    if (res.ok) setSent(true);
+    else setError("Something went wrong. Try again.");
+  };
 
   return (
-    <main className="scene">
-      <div className="grain" />
+    <div className="app">
+      {!introDone && (
+        <div className="intro">
+          <div className="intro-title">ULTRAVISION AI</div>
+          <div className="intro-sub">INITIALIZING PREVIEW</div>
+        </div>
+      )}
 
-      <div className="content">
-        {phase >= 1 && (
-          <p className="line fade">
-            We taught machines to listen.
+      {introDone && (
+        <main className="content">
+          <h1>Ultravision AI</h1>
+          <p className="tagline">
+            A preview of an artificial intelligence system currently in
+            development.
           </p>
-        )}
 
-        {phase >= 2 && (
-          <p className="line fade">
-            Then we taught them to see.
+          <p className="description">
+            Ultravision explores real‑time perception — understanding voice,
+            vision, and context together. This preview represents direction,
+            not the final product.
           </p>
-        )}
 
-        {phase >= 3 && (
-          <p className="line fade dim">
-            What followed was not planned.
-          </p>
-        )}
-
-        {phase >= 4 && (
-          <>
-            <h1 className="title">Ultravision AI</h1>
-
-            <p className="subtitle">
-              A private preview of an artificial intelligence system
-              designed to understand the world through vision, sound,
-              and real‑world context.
-            </p>
-
-            <div className="signals">
-              <span>Live audio → structured intelligence</span>
-              <span>Image & scene understanding</span>
-              <span>Grounded in verifiable sources</span>
+          {!sent ? (
+            <form onSubmit={submit} className="form">
+              <input
+                type="email"
+                placeholder="Request private preview"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button type="submit">Request Access</button>
+              {error && <span className="error">{error}</span>}
+            </form>
+          ) : (
+            <div className="success">
+              Access request received.
+              <span>We’ll be in touch.</span>
             </div>
+          )}
 
-            {!submitted ? (
-              <form
-                className="emailForm"
-                onSubmit={handleSubmit}
-                action="https://formspree.io/f/mvzkqdna"
-                method="POST"
-              >
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Request private access"
-                />
-                <button type="submit">Transmit</button>
-              </form>
-            ) : (
-              <p className="success">
-                Access request received.
-              </p>
-            )}
-
-            <footer>
-              Preview experience · Invite only<br />
-              Developed by Abdellah El Fatnassi
-            </footer>
-          </>
-        )}
-      </div>
-    </main>
+          <footer>
+            Invite‑only preview · Limited access  
+            <br />
+            <span>Developer: Abdellah El Fatnassi</span>
+          </footer>
+        </main>
+      )}
+    </div>
   );
 }
