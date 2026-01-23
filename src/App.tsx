@@ -23,13 +23,20 @@ export default function App() {
 
         <p className="meta">Invite‑only preview · Limited access</p>
 
-        <form className="emailForm" onSubmit={(e) => e.preventDefault()}>
+        {/* WORKING EMAIL FORM */}
+        <form
+          className="emailForm"
+          action="https://formspree.io/f/xxxxxxx"
+          method="POST"
+        >
           <input
             type="email"
+            name="email"
             placeholder="Enter your email for early access"
             className="emailInput"
             required
           />
+
           <button className="primary" type="submit">
             Request Access
           </button>
