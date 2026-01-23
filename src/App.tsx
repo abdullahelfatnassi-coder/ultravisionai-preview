@@ -1,97 +1,55 @@
-import './index.css'
-
 function App() {
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>UltraVision AI</h1>
+    <div
+      style={{
+        minHeight: "100vh",
+        width: "100vw",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#0b0b0f",
+        color: "#ffffff",
+        fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+        textAlign: "center",
+      }}
+    >
+      <div style={{ maxWidth: "720px", padding: "24px" }}>
+        <h1 style={{ fontSize: "3rem", marginBottom: "0.5rem" }}>
+          UltraVision AI
+        </h1>
 
-        <p style={styles.subtitle}>
+        <p style={{ fontSize: "1.2rem", opacity: 0.85 }}>
           Next‑generation AI vision technology
         </p>
 
-        <div style={styles.badge}>COMING SOON</div>
+        <h2
+          style={{
+            marginTop: "3rem",
+            marginBottom: "1rem",
+            letterSpacing: "0.15em",
+            fontSize: "1.2rem",
+            opacity: 0.9,
+          }}
+        >
+          COMING SOON
+        </h2>
 
-        <p style={styles.description}>
+        <p style={{ lineHeight: 1.6, opacity: 0.75 }}>
           UltraVision AI is currently in private development.
+          <br />
           This is an early preview of the brand and concept.
         </p>
 
-        <p style={styles.note}>
+        <p style={{ marginTop: "3rem", opacity: 0.6 }}>
           Built by Abdellah El Fatnassi
         </p>
 
-        <button style={styles.button} disabled>
+        <p style={{ marginTop: "1.5rem", opacity: 0.85 }}>
           Early access opening soon
-        </button>
+        </p>
       </div>
     </div>
-  )
+  );
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #0f0f0f, #1a1a1a)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-    fontFamily: 'Inter, system-ui, sans-serif',
-  },
-  card: {
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '16px',
-    padding: '48px',
-    maxWidth: '420px',
-    width: '100%',
-    textAlign: 'center',
-    boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
-  },
-  title: {
-    fontSize: '2.5rem',
-    marginBottom: '12px',
-    fontWeight: 700,
-    letterSpacing: '-0.02em',
-  },
-  subtitle: {
-    fontSize: '1rem',
-    opacity: 0.85,
-    marginBottom: '24px',
-  },
-  badge: {
-    display: 'inline-block',
-    padding: '8px 16px',
-    borderRadius: '999px',
-    background: 'rgba(255,255,255,0.08)',
-    border: '1px solid rgba(255,255,255,0.15)',
-    marginBottom: '24px',
-    fontSize: '0.85rem',
-    letterSpacing: '0.08em',
-  },
-  description: {
-    fontSize: '0.95rem',
-    lineHeight: 1.6,
-    opacity: 0.9,
-    marginBottom: '24px',
-  },
-  note: {
-    fontSize: '0.8rem',
-    opacity: 0.6,
-    marginBottom: '32px',
-  },
-  button: {
-    width: '100%',
-    padding: '14px',
-    borderRadius: '10px',
-    border: 'none',
-    background: '#ffffff',
-    color: '#000000',
-    fontWeight: 600,
-    cursor: 'not-allowed',
-    opacity: 0.8,
-  },
-}
-
-export default App
+export default App;
