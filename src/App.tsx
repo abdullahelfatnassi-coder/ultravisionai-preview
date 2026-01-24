@@ -2,35 +2,50 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false);
+  const [entered, setEntered] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => setLoaded(true), 400);
-  }, []);
+  const enterSite = () => {
+    setEntered(true);
+  };
+
+  const handleSubmit = () => {
+    setSubmitted(true);
+
+    // Real haptic vibration (mobile only)
+    if ("vibrate" in navigator) {
+      navigator.vibrate(25);
+    }
+  };
 
   return (
-    <div className={`app ${loaded ? "loaded" : ""}`}>
+    <div className={`app ${entered ? "entered" : ""}`}>
+      {!entered && (
+        <div className="gate" onClick={enterSite}>
+          <span className="gate-text">Tap to enter</span>
+        </div>
+      )}
+
       <main className="container">
         <section className="hero">
           <h1>Ultravision AI</h1>
           <p className="subtitle">
-            A private preview of an artificial intelligence system focused on
-            real‑world understanding.
+            Private preview of an artificial intelligence system focused on
+            real‑world perception.
           </p>
         </section>
 
         <section className="description">
           <p>
-            Ultravision AI is designed to interpret live input — audio, images,
-            documents, and context — and transform it into structured,
-            verifiable intelligence.
+            Ultravision AI processes live audio, visual input, and documents to
+            generate structured, verifiable intelligence — designed for serious
+            use, not demos.
           </p>
 
           <ul>
-            <li>Live transcription and reasoning</li>
-            <li>Visual and document analysis</li>
-            <li>Source‑aware outputs</li>
+            <li>Live transcription & reasoning</li>
+            <li>Image & document understanding</li>
+            <li>Source‑aware intelligence</li>
           </ul>
         </section>
 
@@ -39,7 +54,7 @@ export default function App() {
             <form
               action="https://formspree.io/f/mvzkqdna"
               method="POST"
-              onSubmit={() => setSubmitted(true)}
+              onSubmit={handleSubmit}
             >
               <input
                 type="email"
