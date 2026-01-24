@@ -1,52 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [entered, setEntered] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const enterSite = () => {
-    setEntered(true);
+  const unlock = () => {
+    setUnlocked(true);
   };
 
   const handleSubmit = () => {
     setSubmitted(true);
-
-    // Real haptic vibration (mobile only)
-    if ("vibrate" in navigator) {
-      navigator.vibrate(25);
-    }
+    if ("vibrate" in navigator) navigator.vibrate(20);
   };
 
   return (
-    <div className={`app ${entered ? "entered" : ""}`}>
-      {!entered && (
-        <div className="gate" onClick={enterSite}>
-          <span className="gate-text">Tap to enter</span>
+    <div className={`app ${unlocked ? "unlocked" : ""}`}>
+      {!unlocked && (
+        <div className="lock">
+          <div className="lock-inner" onMouseDown={unlock} onTouchStart={unlock}>
+            <span className="lock-label">PRESS AND HOLD</span>
+            <span className="lock-title">ULTRAVISION AI</span>
+          </div>
         </div>
       )}
 
-      <main className="container">
+      <main className="stage">
         <section className="hero">
           <h1>Ultravision AI</h1>
-          <p className="subtitle">
-            Private preview of an artificial intelligence system focused on
-            real‑world perception.
+          <p>
+            A private artificial intelligence system designed to observe,
+            interpret, and reason across real‑world input.
           </p>
         </section>
 
-        <section className="description">
-          <p>
-            Ultravision AI processes live audio, visual input, and documents to
-            generate structured, verifiable intelligence — designed for serious
-            use, not demos.
-          </p>
-
-          <ul>
-            <li>Live transcription & reasoning</li>
-            <li>Image & document understanding</li>
-            <li>Source‑aware intelligence</li>
-          </ul>
+        <section className="capabilities">
+          <div>Live audio cognition</div>
+          <div>Visual scene analysis</div>
+          <div>Document intelligence</div>
+          <div>Source‑grounded reasoning</div>
         </section>
 
         <section className="access">
@@ -59,24 +51,21 @@ export default function App() {
               <input
                 type="email"
                 name="email"
-                placeholder="Email address"
+                placeholder="Request access"
                 required
               />
-              <button type="submit">Request private access</button>
-              <span className="hint">
-                Invite‑only preview · Limited availability
-              </span>
+              <button type="submit">Submit</button>
             </form>
           ) : (
-            <div className="success">
-              Request received. We’ll be in touch.
+            <div className="confirmed">
+              Access request registered.
             </div>
           )}
         </section>
       </main>
 
       <footer>
-        <span>Ultravision AI — Preview</span>
+        <span>Ultravision AI · Restricted Preview</span>
         <span>Developed by Abdellah El Fatnassi</span>
         <span>© 2026</span>
       </footer>
