@@ -1,108 +1,94 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [introDone, setIntroDone] = useState(false);
-  const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState("");
+  const [entered, setEntered] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIntroDone(true), 3200);
-    return () => clearTimeout(timer);
+    document.body.classList.add("no-scroll");
+    return () => document.body.classList.remove("no-scroll");
   }, []);
 
-  const validateEmail = (value: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const enterSystem = () => {
+    setEntered(true);
+    setTimeout(() => {
+      emailRef.current?.focus();
+    }, 600);
   };
 
-  const submitForm = async (e: React.FormEvent) => {
+  const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setSubmitted(true);
 
-    if (!validateEmail(email)) {
-      setError("Enter a valid email address");
-      return;
-    }
-
-    try {
-      await fetch("https://formspree.io/f/mvzkqdna", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      setSent(true);
-
-      // Subtle haptic (mobile only, supported browsers)
-      if (navigator.vibrate) navigator.vibrate(20);
-    } catch {
-      setError("Something went wrong. Try again.");
-    }
+    // Haptic feedback (Apple‑safe)
+    if (navigator.vibrate) navigator.vibrate(30);
   };
 
   return (
-    <div className="app">
-      {!introDone && (
-        <div className="intro">
-          <div className="intro-content">
-            <h1>ULTRAVISION AI</h1>
+    <div className="system">
+      {!entered && (
+        <div className="gate" onClick={enterSystem}>
+          <div className="gate-inner">
+            <span className="gate-hint">Tap to enter</span>
+            <h1 className="gate-title">ULTRAVISION AI</h1>
+            <span className="gate-sub">Preview Interface</span>
           </div>
         </div>
       )}
 
-      <main className={`main ${introDone ? "show" : ""}`}>
-        <section className="hero">
-          <h2>COMING SOON · PREVIEW</h2>
-          <h1>Ultravision AI</h1>
-          <p>
-            A private preview of an advanced artificial intelligence system
-            focused on perception, reasoning, and real‑world understanding.
-          </p>
-        </section>
+      {entered && (
+        <main className="stage">
+          <section className="intro">
+            <h2 className="intro-line">COMING SOON · PREVIEW</h2>
+            <h1 className="intro-title">Ultravision AI</h1>
+            <p className="intro-text">
+              A next‑generation artificial intelligence system designed for
+              perception, reasoning, and real‑time analysis.
+            </p>
+            <p className="intro-text muted">
+              This preview represents direction and capability — not the final
+              product.
+            </p>
+          </section>
 
-        <section className="features">
-          <div>
-            <h3>Live Intelligence</h3>
-            <p>Real‑time audio capture, visual analysis, and contextual memory.</p>
-          </div>
-          <div>
-            <h3>Source‑Grounded</h3>
-            <p>Information verified against real, traceable sources.</p>
-          </div>
-          <div>
-            <h3>Privacy‑First</h3>
-            <p>Invite‑only access with encrypted processing pipelines.</p>
-          </div>
-        </section>
-
-        <section className="form-section">
-          {!sent ? (
-            <form onSubmit={submitForm}>
+          {!submitted && (
+            <form
+              className="access"
+              action="https://formspree.io/f/mvzkqdna"
+              method="POST"
+              onSubmit={submitForm}
+            >
+              <label>Request private access</label>
               <input
+                ref={emailRef}
                 type="email"
-                placeholder="Request private access"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                placeholder="you@domain.com"
+                required
               />
               <button type="submit">Request Access</button>
-              {error && <span className="error">{error}</span>}
             </form>
-          ) : (
+          )}
+
+          {submitted && (
             <div className="success">
-              <span>✓</span>
-              <p>Request received. We’ll be in touch.</p>
+              <span className="signal">ACCESS REQUESTED</span>
+              <p>
+                Your request has been received.
+                <br />
+                You will be contacted if approved.
+              </p>
             </div>
           )}
-        </section>
 
-        <footer>
-          <p>
-            © {new Date().getFullYear()} Ultravision AI · Preview build<br />
-            Developed by <strong>Abdellah El Fatnassi</strong>
-          </p>
-        </footer>
-      </main>
+          <footer className="footer">
+            <span>© Ultravision AI</span>
+            <span>Developer: Abdellah El Fatnassi</span>
+          </footer>
+        </main>
+      )}
     </div>
   );
 }
