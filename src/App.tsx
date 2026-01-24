@@ -2,32 +2,20 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [bootDone, setBootDone] = useState(false);
-  const [step, setStep] = useState(0);
+  const [boot, setBoot] = useState(true);
+  const [entered, setEntered] = useState(false);
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const bootLogs = [
-    "INITIALIZING ULTRAVISION CORE",
-    "LINKING PERCEPTION MODULES",
-    "SYNCING REAL‑WORLD SIGNALS",
-    "SYSTEM STATUS: ONLINE",
-  ];
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    if (step < bootLogs.length) {
-      const t = setTimeout(() => setStep(step + 1), 900);
-      return () => clearTimeout(t);
-    } else {
-      const done = setTimeout(() => setBootDone(true), 1200);
-      return () => clearTimeout(done);
-    }
-  }, [step]);
+    const t = setTimeout(() => setBoot(false), 4200);
+    return () => clearTimeout(t);
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    if (navigator.vibrate) navigator.vibrate(25);
+    setSent(true);
+    if (navigator.vibrate) navigator.vibrate(30);
 
     await fetch("https://formspree.io/f/mvzkqdna", {
       method: "POST",
@@ -37,67 +25,73 @@ export default function App() {
   };
 
   return (
-    <div className="system">
-      {!bootDone && (
+    <div className={`system ${entered ? "entered" : ""}`}>
+      {boot && (
         <div className="boot">
           <div className="scan" />
           <div className="logs">
-            {bootLogs.slice(0, step).map((l, i) => (
-              <div key={i} className="log">
-                {l}
-              </div>
-            ))}
+            <div>INITIALIZING ULTRAVISION CORE</div>
+            <div>LINKING PERCEPTION LAYERS</div>
+            <div>CALIBRATING REALITY SIGNALS</div>
+            <div>SYSTEM READY</div>
           </div>
         </div>
       )}
 
-      {bootDone && (
+      {!boot && !entered && (
+        <div className="enter" onClick={() => setEntered(true)}>
+          <div className="enter-inner">
+            <span>ULTRAVISION AI</span>
+            <p>Tap anywhere to interface</p>
+          </div>
+        </div>
+      )}
+
+      {!boot && entered && (
         <main className="stage">
           <section className="hero">
-            <span className="flag">PRIVATE PREVIEW</span>
             <h1>Ultravision AI</h1>
             <p>
-              A private artificial intelligence system designed to perceive
-              reality.
+              A private intelligence system built to observe, interpret, and
+              reason across reality itself.
             </p>
           </section>
 
           <section className="gate">
-            {!submitted ? (
+            {!sent ? (
               <form onSubmit={submit}>
                 <input
                   type="email"
-                  placeholder="Request private access"
+                  placeholder="Enter secure channel"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <button type="submit">Request Access</button>
+                <button type="submit">Request Interface</button>
               </form>
             ) : (
-              <div className="confirmed">Thank you for your request you will be contacted Soon</div>
+              <div className="confirmed">REQUEST TRANSMITTED</div>
             )}
           </section>
 
           <section className="grid">
             <div>
-              <h3>Perception</h3>
+              <h3>Live Perception</h3>
               <p>
-                Understands live audio, imagery, documents, and environments in
-                real time.
+                Processes audio, images, documents, and environments in real
+                time.
               </p>
             </div>
             <div>
-              <h3>Grounding</h3>
+              <h3>Grounded Reasoning</h3>
               <p>
-                Outputs are tied to verifiable sources — not hallucinated
-                responses.
+                Responses are anchored to verifiable signals — not assumptions.
               </p>
             </div>
             <div>
-              <h3>Direction</h3>
+              <h3>System Design</h3>
               <p>
-                Built as infrastructure — not a chatbot, not a demo.
+                Built as infrastructure. Not a chatbot. Not a toy.
               </p>
             </div>
           </section>
@@ -105,7 +99,7 @@ export default function App() {
           <footer>
             <span>Developed by Abdellah El Fatnassi</span>
             <span className="legal">
-              Ultravision AI · Invite‑only preview · All rights reserved
+              Ultravision AI · Private Preview · All rights reserved
             </span>
           </footer>
         </main>
