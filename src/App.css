@@ -1,12 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 :root {
-  --bg: #0b0d10;
-  --panel: #111418;
-  --text-primary: #f5f7fa;
-  --text-secondary: #9aa3ad;
-  --border: rgba(255, 255, 255, 0.06);
-  --accent: #5b8cff;
+  --bg: #050507;
+  --fg: #ffffff;
+  --muted: rgba(255,255,255,0.55);
+  --line: rgba(255,255,255,0.08);
 }
 
 * {
@@ -15,134 +13,139 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system;
   background: var(--bg);
-  color: var(--text-primary);
+  color: var(--fg);
+  font-family: Inter, system-ui, -apple-system;
 }
 
-/* CINEMATIC ENTRY */
+/* LOCK SCREEN */
+
+.lock {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: grid;
+  place-items: center;
+  z-index: 10;
+}
+
+.lock-inner {
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lock-label {
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  opacity: 0.5;
+}
+
+.lock-title {
+  display: block;
+  margin-top: 16px;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+}
+
+/* STAGE */
 
 .app {
   min-height: 100vh;
-  transform: scale(1.35);
+  transform: scale(1.45);
   opacity: 0;
-  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 1.6s ease;
+  transition:
+    transform 2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.6s ease;
 }
 
-.app.entered {
+.app.unlocked {
   transform: scale(1);
   opacity: 1;
 }
 
-/* GATE */
-
-.gate {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.gate-text {
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 0.3em;
-  opacity: 0.7;
-}
-
-/* CONTENT */
-
-.container {
-  max-width: 1100px;
+.stage {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 96px 24px;
+  padding: 120px 32px;
 }
+
+/* HERO */
 
 .hero h1 {
-  font-size: 56px;
-  font-weight: 500;
+  font-size: 64px;
+  font-weight: 600;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
 }
 
-.subtitle {
-  color: var(--text-secondary);
-  font-size: 18px;
-  max-width: 520px;
-}
-
-.description {
-  margin-top: 96px;
-  max-width: 720px;
-}
-
-.description p {
-  color: var(--text-secondary);
+.hero p {
+  max-width: 560px;
+  color: var(--muted);
+  margin-top: 24px;
   line-height: 1.6;
 }
 
-.description ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 32px;
+/* CAPABILITIES */
+
+.capabilities {
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
-.description li {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
+.capabilities div {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
   font-size: 15px;
 }
 
-/* FORM */
+/* ACCESS */
 
 .access {
-  margin-top: 96px;
+  margin-top: 120px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  max-width: 420px;
+  max-width: 360px;
 }
 
 input {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 14px 16px;
-  color: var(--text-primary);
-  font-size: 15px;
-  border-radius: 6px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+  color: var(--fg);
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: var(--muted);
 }
 
 input:focus {
-  border-color: var(--accent);
   outline: none;
+  border-bottom-color: #fff;
 }
 
 button {
-  margin-top: 16px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 14px;
-  border-radius: 6px;
+  margin-top: 24px;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 14px 24px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.hint {
-  margin-top: 12px;
-  font-size: 13px;
-  color: var(--text-secondary);
+button:hover {
+  border-color: #fff;
 }
 
-.success {
+.confirmed {
+  color: var(--muted);
   font-size: 15px;
-  color: var(--text-secondary);
 }
 
 /* FOOTER */
@@ -150,8 +153,8 @@ button {
 footer {
   display: flex;
   justify-content: space-between;
-  padding: 32px 24px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--text-secondary);
+  padding: 32px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
 }
