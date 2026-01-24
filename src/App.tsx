@@ -2,37 +2,20 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [introDone, setIntroDone] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    // intro timing
-    const t = setTimeout(() => setIntroDone(true), 2600);
-    return () => clearTimeout(t);
+    setTimeout(() => setLoaded(true), 1200);
   }, []);
 
-  useEffect(() => {
-    // subtle parallax
-    const move = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 8;
-      const y = (e.clientY / window.innerHeight - 0.5) * 8;
-      document.documentElement.style.setProperty("--px", `${x}px`);
-      document.documentElement.style.setProperty("--py", `${y}px`);
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
+  const isValidEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-  const submit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Enter a valid email address.");
-      return;
-    }
+    if (!isValidEmail(email)) return;
 
     const res = await fetch("https://formspree.io/f/mvzkqdna", {
       method: "POST",
@@ -42,58 +25,58 @@ export default function App() {
 
     if (res.ok) {
       if (navigator.vibrate) navigator.vibrate(20);
-      setSent(true);
-    } else {
-      setError("Something went wrong. Try again.");
+      setSubmitted(true);
+      setEmail("");
     }
-  };
+  }
 
   return (
-    <div className="app">
-      {!introDone && (
-        <div className="intro">
-          <div className="intro-logo">ULTRAVISION AI</div>
-          <div className="intro-sub">INITIALIZING PREVIEW</div>
-        </div>
-      )}
+    <div className={`app ${loaded ? "loaded" : ""}`}>
+      {/* INTRO */}
+      <section className="intro">
+        <h1>Ultravision AI</h1>
+        <p>Preview</p>
+      </section>
 
-      {introDone && (
-        <main className="content">
-          <p className="eyebrow">COMING SOON · PREVIEW</p>
+      {/* MAIN */}
+      <main className="content">
+        <h2>Coming Soon</h2>
 
-          <h1 className="title reveal">Ultravision AI</h1>
+        <p className="description">
+          Ultravision AI is an upcoming artificial intelligence system focused on
+          real‑time understanding — from live audio and visual inputs to
+          contextual reasoning grounded in verified sources.
+        </p>
 
-          <p className="description">
-            A preview of an artificial intelligence system currently in
-            development. This experience represents vision and direction — not
-            the final product.
-          </p>
+        <p className="description">
+          This preview represents vision and direction, not the final product.
+          Access is limited while core systems are still under development.
+        </p>
 
-          {!sent ? (
-            <form className="form" onSubmit={submit}>
-              <input
-                type="email"
-                placeholder="Request private access"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button type="submit">Request</button>
-              {error && <span className="error">{error}</span>}
-            </form>
-          ) : (
-            <div className="success">
-              Access request received.
-              <span>We’ll be in touch.</span>
-            </div>
-          )}
+        {!submitted ? (
+          <form className="emailForm" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Enter your email for private preview"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit" disabled={!isValidEmail(email)}>
+              Request Access
+            </button>
+          </form>
+        ) : (
+          <div className="success">
+            Thank you. Your request has been received.
+          </div>
+        )}
 
-          <footer>
-            Invite‑only preview · Limited access
-            <br />
-            Developer: Abdellah El Fatnassi
-          </footer>
-        </main>
-      )}
+        <footer>
+          <span>Invite‑only · Limited access</span>
+          <span>Developed by Abdellah El Fatnassi</span>
+        </footer>
+      </main>
     </div>
   );
 }
