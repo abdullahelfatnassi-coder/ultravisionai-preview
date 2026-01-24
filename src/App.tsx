@@ -1,91 +1,107 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
   const [entered, setEntered] = useState(false);
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => document.body.classList.remove("no-scroll");
-  }, []);
+    document.body.style.overflow = entered ? "auto" : "hidden";
+  }, [entered]);
 
-  const enterSystem = () => {
-    setEntered(true);
-    setTimeout(() => {
-      emailRef.current?.focus();
-    }, 600);
-  };
-
-  const submitForm = (e: React.FormEvent) => {
+  const submitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!email.includes("@")) return;
+
     setSubmitted(true);
 
-    // Haptic feedback (Apple‑safe)
-    if (navigator.vibrate) navigator.vibrate(30);
+    // subtle haptic (mobile safe)
+    if (navigator.vibrate) navigator.vibrate(20);
+
+    await fetch("https://formspree.io/f/mvzkqdna", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
   };
 
   return (
     <div className="system">
       {!entered && (
-        <div className="gate" onClick={enterSystem}>
-          <div className="gate-inner">
-            <span className="gate-hint">Tap to enter</span>
-            <h1 className="gate-title">ULTRAVISION AI</h1>
-            <span className="gate-sub">Preview Interface</span>
+        <div className="entry" onClick={() => setEntered(true)}>
+          <div className="entry-inner">
+            <span className="small">ULTRAVISION-AI</span>
+            <h1>Tap to enter</h1>
           </div>
         </div>
       )}
 
       {entered && (
         <main className="stage">
-          <section className="intro">
-            <h2 className="intro-line">COMING SOON · PREVIEW</h2>
-            <h1 className="intro-title">Ultravision-AI</h1>
-            <p className="intro-text">
-              A next‑generation artificial intelligence system designed for
-              perception, reasoning, and real‑time analysis.
-            </p>
-            <p className="intro-text muted">
-              This preview represents direction and capability — not the final
-              product.
+          <section className="hero">
+            <span className="label">COMING SOON · PREVIEW</span>
+            <h1>Ultravision AI</h1>
+            <p>
+              A private preview of an advanced artificial intelligence system
+              focused on perception, reasoning, and real‑world understanding.
             </p>
           </section>
 
-          {!submitted && (
-            <form
-              className="access"
-              action="https://formspree.io/f/mvzkqdna"
-              method="POST"
-              onSubmit={submitForm}
-            >
-              <label>Request private access</label>
-              <input
-                ref={emailRef}
-                type="email"
-                name="email"
-                placeholder="you@domain.com"
-                required
-              />
-              <button type="submit">Request Access</button>
-            </form>
-          )}
+          <section className="gate">
+            {!submitted ? (
+              <form onSubmit={submitEmail}>
+                <input
+                  type="email"
+                  placeholder="Request private access"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <button type="submit">Request Access</button>
+              </form>
+            ) : (
+              <div className="success">
+                <span>ACCESS REQUESTED</span>
+              </div>
+            )}
+          </section>
 
-          {submitted && (
-            <div className="success">
-              <span className="signal">ACCESS REQUESTED</span>
+          <section className="info">
+            <div>
+              <h3>What it does</h3>
               <p>
-                Your Request has been received.
-                <br />
-                You will be in contact with the UltraVision Team Soon.
+                Ultravision-AI is designed to understand live environments —
+                analyzing audio, images, documents, and context to deliver
+                grounded intelligence using real sources.
               </p>
             </div>
-          )}
 
-          <footer className="footer">
-            <span>© Ultravision AI</span>
-            <span>Developer:SOON </span>
+            <div>
+              <h3>How it works</h3>
+              <p>
+                Multimodal perception pipelines combined with verified retrieval
+                systems enable accurate, explainable outputs in real time.
+              </p>
+            </div>
+
+            <div>
+              <h3>Roadmap</h3>
+              <p>
+                Private preview → limited release → developer access →
+                full system deployment.
+              </p>
+            </div>
+          </section>
+
+          <footer>
+            <span>
+              Developed by Abdellah El Fatnassi · Ultravision-AI
+            </span>
+            <span className="legal">
+              Preview only · Not a public product · All rights reserved
+            </span>
           </footer>
         </main>
       )}
