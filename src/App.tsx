@@ -1,73 +1,89 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 export default function App() {
   const [unlocked, setUnlocked] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+  const holdTimer = useRef<number | null>(null);
 
   const unlock = () => {
     setUnlocked(true);
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    if ("vibrate" in navigator) navigator.vibrate(20);
+  const startHold = () => {
+    holdTimer.current = window.setTimeout(unlock, 900);
   };
 
+  const cancelHold = () => {
+    if (holdTimer.current) {
+      clearTimeout(holdTimer.current);
+      holdTimer.current = null;
+    }
+  };
+
+  const onSubmit = () => {
+    if ("vibrate" in navigator) navigator.vibrate(25);
+    setTimeout(() => setConfirmed(true), 300);
+  };
+
+  useEffect(() => {
+    return cancelHold;
+  }, []);
+
   return (
-    <div className={`app ${unlocked ? "unlocked" : ""}`}>
+    <div className={`app ${unlocked ? "active" : ""}`}>
       {!unlocked && (
-        <div className="lock">
-          <div className="lock-inner" onMouseDown={unlock} onTouchStart={unlock}>
-            <span className="lock-label">PRESS AND HOLD</span>
-            <span className="lock-title">ULTRAVISION AI</span>
+        <div className="gate">
+          <div
+            className="hold"
+            onMouseDown={startHold}
+            onMouseUp={cancelHold}
+            onMouseLeave={cancelHold}
+            onTouchStart={startHold}
+            onTouchEnd={cancelHold}
+          >
+            <span className="label">PRESS AND HOLD</span>
+            <span className="title">ULTRAVISION AI</span>
           </div>
         </div>
       )}
 
       <main className="stage">
-        <section className="hero">
-          <h1>Ultravision AI</h1>
-          <p>
-            A private artificial intelligence system designed to observe,
-            interpret, and reason across real‑world input.
+        <section className="transmission">
+          <div className="line">This system observes.</div>
+          <div className="line delay-1">It listens.</div>
+          <div className="line delay-2">It understands context.</div>
+
+          <p className="sub delay-3">
+            Ultravision AI processes live audio, visual input, and documents into
+            structured, source‑aware intelligence. This is not a demo.
           </p>
-        </section>
 
-        <section className="capabilities">
-          <div>Live audio cognition</div>
-          <div>Visual scene analysis</div>
-          <div>Document intelligence</div>
-          <div>Source‑grounded reasoning</div>
-        </section>
-
-        <section className="access">
-          {!submitted ? (
-            <form
-              action="https://formspree.io/f/mvzkqdna"
-              method="POST"
-              onSubmit={handleSubmit}
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="Request access"
-                required
-              />
-              <button type="submit">Submit</button>
-            </form>
-          ) : (
-            <div className="confirmed">
-              Access request registered.
-            </div>
-          )}
+          <div className="access delay-4">
+            {!confirmed ? (
+              <form
+                action="https://formspree.io/f/mvzkqdna"
+                method="POST"
+                onSubmit={onSubmit}
+              >
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Request access"
+                  required
+                />
+                <button type="submit">Transmit request</button>
+              </form>
+            ) : (
+              <div className="confirmed">Request received.</div>
+            )}
+          </div>
         </section>
       </main>
 
       <footer>
-        <span>Ultravision AI · Restricted Preview</span>
-        <span>Developed by Abdellah El Fatnassi</span>
-        <span>© 2026</span>
+        <span>ULTRAVISION AI · Restricted Preview</span>
+        <span>Developed by Abdellah El Fatnassi · © 2026</span>
       </footer>
     </div>
   );
