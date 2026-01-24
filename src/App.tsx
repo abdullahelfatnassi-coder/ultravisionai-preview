@@ -2,23 +2,32 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 export default function App() {
-  const [entered, setEntered] = useState(false);
+  const [bootDone, setBootDone] = useState(false);
+  const [step, setStep] = useState(0);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const bootLogs = [
+    "INITIALIZING ULTRAVISION CORE",
+    "LINKING PERCEPTION MODULES",
+    "SYNCING REAL‑WORLD SIGNALS",
+    "SYSTEM STATUS: ONLINE",
+  ];
+
   useEffect(() => {
-    document.body.style.overflow = entered ? "auto" : "hidden";
-  }, [entered]);
+    if (step < bootLogs.length) {
+      const t = setTimeout(() => setStep(step + 1), 900);
+      return () => clearTimeout(t);
+    } else {
+      const done = setTimeout(() => setBootDone(true), 1200);
+      return () => clearTimeout(done);
+    }
+  }, [step]);
 
-  const submitEmail = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!email.includes("@")) return;
-
     setSubmitted(true);
-
-    // subtle haptic (mobile safe)
-    if (navigator.vibrate) navigator.vibrate(20);
+    if (navigator.vibrate) navigator.vibrate(25);
 
     await fetch("https://formspree.io/f/mvzkqdna", {
       method: "POST",
@@ -29,29 +38,33 @@ export default function App() {
 
   return (
     <div className="system">
-      {!entered && (
-        <div className="entry" onClick={() => setEntered(true)}>
-          <div className="entry-inner">
-            <h1></H1> className="small">ULTRAVISION-AI</h1>
-            <P>Tap to enter</P>
+      {!bootDone && (
+        <div className="boot">
+          <div className="scan" />
+          <div className="logs">
+            {bootLogs.slice(0, step).map((l, i) => (
+              <div key={i} className="log">
+                {l}
+              </div>
+            ))}
           </div>
         </div>
       )}
 
-      {entered && (
+      {bootDone && (
         <main className="stage">
           <section className="hero">
-            <span className="label">COMING SOON · PREVIEW</span>
+            <span className="flag">PRIVATE PREVIEW</span>
             <h1>Ultravision AI</h1>
             <p>
-              A private preview of an advanced artificial intelligence system
-              focused on perception, reasoning, and real‑world understanding.
+              A private artificial intelligence system designed to perceive
+              reality.
             </p>
           </section>
 
           <section className="gate">
             {!submitted ? (
-              <form onSubmit={submitEmail}>
+              <form onSubmit={submit}>
                 <input
                   type="email"
                   placeholder="Request private access"
@@ -62,45 +75,37 @@ export default function App() {
                 <button type="submit">Request Access</button>
               </form>
             ) : (
-              <div className="success">
-                <span>ACCESS REQUESTED</span>
-              </div>
+              <div className="confirmed">Thank you for your request you will be contacted Soon</div>
             )}
           </section>
 
-          <section className="info">
+          <section className="grid">
             <div>
-              <h3>What it does</h3>
+              <h3>Perception</h3>
               <p>
-                Ultravision-AI is designed to understand live environments —
-                analyzing audio, images, documents, and context to deliver
-                grounded intelligence using real sources.
+                Understands live audio, imagery, documents, and environments in
+                real time.
               </p>
             </div>
-
             <div>
-              <h3>How it works</h3>
+              <h3>Grounding</h3>
               <p>
-                Multimodal perception pipelines combined with verified retrieval
-                systems enable accurate, explainable outputs in real time.
+                Outputs are tied to verifiable sources — not hallucinated
+                responses.
               </p>
             </div>
-
             <div>
-              <h3>Roadmap</h3>
+              <h3>Direction</h3>
               <p>
-                Private preview → limited release → developer access →
-                full system deployment.
+                Built as infrastructure — not a chatbot, not a demo.
               </p>
             </div>
           </section>
 
           <footer>
-            <span>
-              Developed by Abdellah El Fatnassi · Ultravision-AI
-            </span>
+            <span>Developed by Abdellah El Fatnassi</span>
             <span className="legal">
-              Preview only · Not a public product · All rights reserved
+              Ultravision AI · Invite‑only preview · All rights reserved
             </span>
           </footer>
         </main>
