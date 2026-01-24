@@ -42,7 +42,7 @@ export default function App() {
         <main className="stage">
           <section className="intro">
             <h2 className="intro-line">COMING SOON · PREVIEW</h2>
-            <h1 className="intro-title">Ultravision AI</h1>
+            <h1 className="intro-title">Ultravision-AI</h1>
             <p className="intro-text">
               A next‑generation artificial intelligence system designed for
               perception, reasoning, and real‑time analysis.
@@ -76,16 +76,16 @@ export default function App() {
             <div className="success">
               <span className="signal">ACCESS REQUESTED</span>
               <p>
-                Your request has been received.
+                Your Request has been received.
                 <br />
-                You will be contacted if approved.
+                You will be in contact with the UltraVision Team Soon.
               </p>
             </div>
           )}
 
           <footer className="footer">
             <span>© Ultravision AI</span>
-            <span>Developer: Abdellah El Fatnassi</span>
+            <span>Developer:SOON </span>
           </footer>
         </main>
       )}
