@@ -4,79 +4,67 @@ import "./App.css";
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setLoaded(true), 1200);
+    setTimeout(() => setLoaded(true), 400);
   }, []);
-
-  const isValidEmail = (value: string) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!isValidEmail(email)) return;
-
-    const res = await fetch("https://formspree.io/f/mvzkqdna", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-
-    if (res.ok) {
-      if (navigator.vibrate) navigator.vibrate(20);
-      setSubmitted(true);
-      setEmail("");
-    }
-  }
 
   return (
     <div className={`app ${loaded ? "loaded" : ""}`}>
-      {/* INTRO */}
-      <section className="intro">
-        <h1>Ultravision AI</h1>
-        <p>Preview</p>
-      </section>
+      <main className="container">
+        <section className="hero">
+          <h1>Ultravision AI</h1>
+          <p className="subtitle">
+            A private preview of an artificial intelligence system focused on
+            real‑world understanding.
+          </p>
+        </section>
 
-      {/* MAIN */}
-      <main className="content">
-        <h2>Coming Soon</h2>
+        <section className="description">
+          <p>
+            Ultravision AI is designed to interpret live input — audio, images,
+            documents, and context — and transform it into structured,
+            verifiable intelligence.
+          </p>
 
-        <p className="description">
-          Ultravision AI is an upcoming artificial intelligence system focused on
-          real‑time understanding — from live audio and visual inputs to
-          contextual reasoning grounded in verified sources.
-        </p>
+          <ul>
+            <li>Live transcription and reasoning</li>
+            <li>Visual and document analysis</li>
+            <li>Source‑aware outputs</li>
+          </ul>
+        </section>
 
-        <p className="description">
-          This preview represents vision and direction, not the final product.
-          Access is limited while core systems are still under development.
-        </p>
-
-        {!submitted ? (
-          <form className="emailForm" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder="Enter your email for private preview"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button type="submit" disabled={!isValidEmail(email)}>
-              Request Access
-            </button>
-          </form>
-        ) : (
-          <div className="success">
-            Thank you. Your request has been received.
-          </div>
-        )}
-
-        <footer>
-          <span>Invite‑only · Limited access</span>
-          <span>Developed by Abdellah El Fatnassi</span>
-        </footer>
+        <section className="access">
+          {!submitted ? (
+            <form
+              action="https://formspree.io/f/mvzkqdna"
+              method="POST"
+              onSubmit={() => setSubmitted(true)}
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                required
+              />
+              <button type="submit">Request private access</button>
+              <span className="hint">
+                Invite‑only preview · Limited availability
+              </span>
+            </form>
+          ) : (
+            <div className="success">
+              Request received. We’ll be in touch.
+            </div>
+          )}
+        </section>
       </main>
+
+      <footer>
+        <span>Ultravision AI — Preview</span>
+        <span>Developed by Abdellah El Fatnassi</span>
+        <span>© 2026</span>
+      </footer>
     </div>
   );
 }
