@@ -32,8 +32,8 @@ export default function App() {
       {!entered && (
         <div className="entry" onClick={() => setEntered(true)}>
           <div className="entry-inner">
-            <span className="small">ULTRAVISION-AI</span>
-            <h1>Tap to enter</h1>
+            <h1></H1> className="small">ULTRAVISION-AI</h1>
+            <P>Tap to enter</P>
           </div>
         </div>
       )}
