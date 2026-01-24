@@ -15,22 +15,47 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+  font-family: Inter, system-ui, -apple-system;
   background: var(--bg);
   color: var(--text-primary);
 }
 
+/* CINEMATIC ENTRY */
+
 .app {
   min-height: 100vh;
+  transform: scale(1.35);
   opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.6s ease;
 }
 
-.app.loaded {
-  opacity: 1;
+.app.entered {
   transform: scale(1);
+  opacity: 1;
 }
+
+/* GATE */
+
+.gate {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.gate-text {
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+}
+
+/* CONTENT */
 
 .container {
   max-width: 1100px;
@@ -58,7 +83,6 @@ body {
 
 .description p {
   color: var(--text-secondary);
-  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -73,6 +97,8 @@ body {
   border-bottom: 1px solid var(--border);
   font-size: 15px;
 }
+
+/* FORM */
 
 .access {
   margin-top: 96px;
@@ -91,11 +117,11 @@ input {
   color: var(--text-primary);
   font-size: 15px;
   border-radius: 6px;
-  outline: none;
 }
 
 input:focus {
   border-color: var(--accent);
+  outline: none;
 }
 
 button {
@@ -104,14 +130,8 @@ button {
   color: #fff;
   border: none;
   padding: 14px;
-  font-size: 15px;
   border-radius: 6px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-button:hover {
-  opacity: 0.9;
 }
 
 .hint {
@@ -125,11 +145,13 @@ button:hover {
   color: var(--text-secondary);
 }
 
+/* FOOTER */
+
 footer {
   display: flex;
   justify-content: space-between;
   padding: 32px 24px;
   border-top: 1px solid var(--border);
-  color: var(--text-secondary);
   font-size: 13px;
+  color: var(--text-secondary);
 }
