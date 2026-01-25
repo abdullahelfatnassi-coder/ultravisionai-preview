@@ -1,7 +1,15 @@
 const glass = document.querySelector(".glass");
+const scene = document.querySelector(".scene");
+const boot = document.getElementById("boot");
 const form = document.getElementById("accessForm");
 
-/* VISION PRO–STYLE PARALLAX */
+/* BOOT → REVEAL */
+setTimeout(() => {
+  if (boot) boot.remove();
+  scene.classList.remove("hidden");
+}, 2600);
+
+/* VISION PRO PARALLAX */
 window.addEventListener("mousemove", (e) => {
   if (!glass) return;
 
@@ -15,7 +23,6 @@ window.addEventListener("mousemove", (e) => {
   `;
 });
 
-/* RESET ON LEAVE */
 window.addEventListener("mouseleave", () => {
   glass.style.transform = "rotateX(0deg) rotateY(0deg)";
 });
@@ -24,13 +31,13 @@ window.addEventListener("mouseleave", () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  document.body.style.transition = "all 1.1s ease";
-  document.body.style.filter = "blur(10px)";
+  document.body.style.transition = "all 1s ease";
+  document.body.style.filter = "blur(12px)";
   document.body.style.opacity = "0";
 
   setTimeout(() => {
-    alert("Ultravision AI is initializing.\nAccess request recorded.");
+    alert("Access request received.\nUltravision AI is initializing.");
     document.body.style.filter = "blur(0)";
     document.body.style.opacity = "1";
-  }, 1000);
+  }, 900);
 });
