@@ -1,9 +1,10 @@
 :root {
   --bg: #050608;
-  --panel: rgba(15,18,26,0.65);
   --text: #e6eaf2;
   --muted: #9aa4b2;
   --accent: #6fe3ff;
+  --glass: rgba(20,24,36,0.45);
+  --border: rgba(255,255,255,0.08);
 }
 
 * { box-sizing: border-box; }
@@ -22,17 +23,17 @@ body {
   overflow: hidden;
 }
 
-/* INTELLIGENCE FIELD */
+/* SPATIAL FIELD */
 .system::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(120deg, transparent 35%, rgba(111,227,255,0.10), transparent 60%),
-    radial-gradient(900px 600px at 20% 30%, rgba(111,227,255,0.12), transparent 65%),
-    radial-gradient(700px 400px at 80% 70%, rgba(111,227,255,0.06), transparent 65%);
+    linear-gradient(120deg, transparent 30%, rgba(111,227,255,0.14), transparent 65%),
+    radial-gradient(1200px 700px at 20% 30%, rgba(111,227,255,0.14), transparent 65%),
+    radial-gradient(900px 500px at 80% 70%, rgba(111,227,255,0.08), transparent 65%);
   background-size: 200% 200%;
-  animation: drift 40s linear infinite;
+  animation: drift 45s linear infinite;
   z-index: 0;
 }
 
@@ -61,8 +62,8 @@ body {
 }
 
 @keyframes scan {
-  from { transform: translateY(-300px); }
-  to { transform: translateY(300px); }
+  from { transform: translateY(-320px); }
+  to { transform: translateY(320px); }
 }
 
 .logs {
@@ -78,22 +79,22 @@ body {
   display: grid;
   place-items: center;
   cursor: pointer;
-  animation: zoomIn 1.6s cubic-bezier(0.16,1,0.3,1);
+  animation: zoomIn 1.8s cubic-bezier(0.16,1,0.3,1);
   z-index: 5;
 }
 
 @keyframes zoomIn {
-  from { transform: scale(1.25); opacity: 0; }
+  from { transform: scale(1.35); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
 .enter-inner span {
-  font-size: 44px;
-  letter-spacing: -0.02em;
+  font-size: 46px;
+  letter-spacing: -0.03em;
 }
 
 .enter-inner p {
-  margin-top: 16px;
+  margin-top: 18px;
   color: var(--muted);
   letter-spacing: 0.3em;
 }
@@ -102,47 +103,99 @@ body {
 .camera {
   position: relative;
   z-index: 2;
-  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  transition: transform 2.2s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* GLASS */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-radius: 18px;
 }
 
 /* STAGE */
 .stage {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 160px 24px 100px;
-  backdrop-filter: blur(4px);
-  animation: reveal 1.6s cubic-bezier(0.16,1,0.3,1);
+  padding: 160px 24px 120px;
+  animation: reveal 1.8s cubic-bezier(0.16,1,0.3,1);
 }
 
 @keyframes reveal {
-  from { opacity: 0; transform: scale(1.08); }
+  from { opacity: 0; transform: scale(1.1); }
   to { opacity: 1; transform: scale(1); }
 }
 
 /* HERO */
+.hero {
+  padding: 48px;
+}
+
 .hero h1 {
-  font-size: clamp(48px, 8vw, 86px);
+  font-size: clamp(52px, 9vw, 92px);
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 
 .hero p {
-  max-width: 620px;
+  max-width: 640px;
   font-size: 18px;
   color: var(--muted);
+}
+
+/* EARLY ACCESS */
+.early {
+  margin-top: 40px;
+}
+
+form {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+input {
+  flex: 1;
+  padding: 18px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+button {
+  padding: 18px 28px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.confirmed {
+  letter-spacing: 0.3em;
+  color: var(--accent);
 }
 
 /* PILLARS */
 .pillars {
   margin-top: 140px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
   gap: 60px;
 }
 
+.pillars > div {
+  padding: 32px;
+}
+
 .pillars h3 {
-  letter-spacing: 0.15em;
   font-size: 13px;
+  letter-spacing: 0.18em;
 }
 
 .pillars p {
@@ -152,6 +205,7 @@ body {
 /* FOOTER */
 footer {
   margin-top: 160px;
+  padding: 28px;
   font-size: 12px;
   color: var(--muted);
   display: flex;
