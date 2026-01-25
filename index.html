@@ -7,44 +7,54 @@
     <title>Ultravision AI</title>
     <meta
       name="description"
-      content="A private perception system designed to interpret reality before it is explained."
+      content="Ultravision AI — a private perception system."
     />
 
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
-    <!-- SYSTEM BOOT -->
+    <!-- BOOT -->
     <div id="boot">
-      <span class="boot-text">Ultravision AI initializing…</span>
+      <span>Ultravision AI initializing…</span>
     </div>
 
     <!-- BACKGROUND -->
     <div class="bg"></div>
 
-    <!-- MAIN SCENE -->
+    <!-- MAIN -->
     <main class="scene hidden">
       <div class="glass">
         <h1>Ultravision AI</h1>
 
         <p class="statement">
-          A private perception system designed to interpret reality<br />
-          before it is explained.
+          A private intelligence system designed<br />
+          to interpret reality before it is explained.
         </p>
 
-        <form id="accessForm">
+        <!-- REAL EMAIL CAPTURE (FORMFREE / FORMSPREE) -->
+        <form
+          id="accessForm"
+          action="https://formspree.io/f/xyzzabcd"
+          method="POST"
+        >
           <input
             type="email"
+            name="email"
             placeholder="Enter email for early access"
             required
           />
           <button type="submit">Request Access</button>
         </form>
 
+        <button id="visionToggle" class="vision-toggle">
+          Enable Vision Pro Mode
+        </button>
+
         <span class="meta">Early access · Limited</span>
       </div>
     </main>
 
-    <script src="app.js"></script>
+    <script src="./app.js"></script>
   </body>
 </html>
