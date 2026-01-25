@@ -12,10 +12,18 @@
 
     <link rel="stylesheet" href="index.css" />
   </head>
+
   <body>
+    <!-- SYSTEM BOOT -->
+    <div id="boot">
+      <span class="boot-text">Ultravision AI initializing…</span>
+    </div>
+
+    <!-- BACKGROUND -->
     <div class="bg"></div>
 
-    <main class="scene">
+    <!-- MAIN SCENE -->
+    <main class="scene hidden">
       <div class="glass">
         <h1>Ultravision AI</h1>
 
@@ -27,7 +35,6 @@
         <form id="accessForm">
           <input
             type="email"
-            id="email"
             placeholder="Enter email for early access"
             required
           />
