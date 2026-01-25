@@ -1,15 +1,17 @@
-const button = document.getElementById("enterBtn");
+const form = document.getElementById("accessForm");
 
-if (button) {
-  button.addEventListener("click", () => {
-    document.body.style.transition = "all 1s ease";
-    document.body.style.transform = "scale(1.15)";
-    document.body.style.opacity = "0";
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    setTimeout(() => {
-      alert("Access request received.\nUltravision AI is initializing.");
-      document.body.style.transform = "scale(1)";
-      document.body.style.opacity = "1";
-    }, 1000);
-  });
-}
+  document.body.style.transition = "all 1s ease";
+  document.body.style.transform = "scale(1.12)";
+  document.body.style.opacity = "0";
+
+  setTimeout(() => {
+    alert(
+      "Access request received.\n\nUltravision AI is initializing."
+    );
+    document.body.style.transform = "scale(1)";
+    document.body.style.opacity = "1";
+  }, 900);
+});
