@@ -1,58 +1,42 @@
 :root {
   --bg: #050608;
-  --panel: #0b0e14;
+  --panel: rgba(15,18,26,0.65);
   --text: #e6eaf2;
   --muted: #9aa4b2;
   --accent: #6fe3ff;
-  --alert: #ff4d4d;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Inter", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, sans-serif;
 }
 
-/* SYSTEM FIELD */
+/* SYSTEM */
 .system {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
 }
 
+/* INTELLIGENCE FIELD */
 .system::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(
-      120deg,
-      transparent 30%,
-      rgba(111,227,255,0.10),
-      transparent 55%
-    ),
-    radial-gradient(
-      900px 500px at 15% 25%,
-      rgba(111,227,255,0.10),
-      transparent 60%
-    ),
-    radial-gradient(
-      800px 400px at 85% 75%,
-      rgba(111,227,255,0.06),
-      transparent 60%
-    );
+    linear-gradient(120deg, transparent 35%, rgba(111,227,255,0.10), transparent 60%),
+    radial-gradient(900px 600px at 20% 30%, rgba(111,227,255,0.12), transparent 65%),
+    radial-gradient(700px 400px at 80% 70%, rgba(111,227,255,0.06), transparent 65%);
   background-size: 200% 200%;
-  animation: pathMove 30s linear infinite;
+  animation: drift 40s linear infinite;
   z-index: 0;
 }
 
-@keyframes pathMove {
+@keyframes drift {
   from { background-position: 0% 50%; }
   to { background-position: 100% 50%; }
 }
@@ -61,11 +45,10 @@ body {
 .boot {
   position: fixed;
   inset: 0;
+  display: grid;
+  place-items: center;
   background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
+  z-index: 10;
 }
 
 .scan {
@@ -73,13 +56,13 @@ body {
   width: 100%;
   height: 1px;
   background: var(--accent);
-  opacity: 0.4;
-  animation: scan 2.5s ease-in-out infinite;
+  opacity: 0.35;
+  animation: scan 3s ease-in-out infinite;
 }
 
 @keyframes scan {
-  from { transform: translateY(-200px); }
-  to { transform: translateY(200px); }
+  from { transform: translateY(-300px); }
+  to { transform: translateY(300px); }
 }
 
 .logs {
@@ -88,126 +71,90 @@ body {
   color: var(--muted);
 }
 
-/* TAP TO ENTER */
+/* ENTER */
 .enter {
   position: fixed;
   inset: 0;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  animation: zoomOut 1.6s cubic-bezier(0.16,1,0.3,1);
+  animation: zoomIn 1.6s cubic-bezier(0.16,1,0.3,1);
+  z-index: 5;
 }
 
-@keyframes zoomOut {
-  from { transform: scale(1.15); opacity: 0; }
+@keyframes zoomIn {
+  from { transform: scale(1.25); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
-.enter-inner {
-  text-align: center;
-}
-
 .enter-inner span {
-  font-size: 42px;
+  font-size: 44px;
   letter-spacing: -0.02em;
 }
 
 .enter-inner p {
-  margin-top: 14px;
+  margin-top: 16px;
   color: var(--muted);
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
 }
 
-/* MAIN STAGE */
-.stage {
+/* CAMERA */
+.camera {
   position: relative;
   z-index: 2;
+  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* STAGE */
+.stage {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 140px 24px 80px;
-  backdrop-filter: blur(2px);
-  animation: reveal 1.4s cubic-bezier(0.16,1,0.3,1);
+  padding: 160px 24px 100px;
+  backdrop-filter: blur(4px);
+  animation: reveal 1.6s cubic-bezier(0.16,1,0.3,1);
 }
 
 @keyframes reveal {
-  from { opacity: 0; transform: scale(1.06); }
+  from { opacity: 0; transform: scale(1.08); }
   to { opacity: 1; transform: scale(1); }
 }
 
 /* HERO */
-.hero {
-  max-width: 680px;
-}
-
 .hero h1 {
-  font-size: clamp(46px, 8vw, 80px);
+  font-size: clamp(48px, 8vw, 86px);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .hero p {
+  max-width: 620px;
   font-size: 18px;
-  line-height: 1.6;
   color: var(--muted);
 }
 
-/* GATE */
-.gate {
-  margin-top: 80px;
-}
-
-form {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-input {
-  flex: 1;
-  padding: 18px;
-  background: var(--panel);
-  border: 1px solid #1a2030;
-  color: var(--text);
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-button {
-  padding: 18px 28px;
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  cursor: pointer;
-}
-
-.confirmed {
-  letter-spacing: 0.3em;
-  color: var(--alert);
-}
-
-/* GRID */
-.grid {
-  margin-top: 130px;
+/* PILLARS */
+.pillars {
+  margin-top: 140px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 60px;
 }
 
-.grid p {
+.pillars h3 {
+  letter-spacing: 0.15em;
+  font-size: 13px;
+}
+
+.pillars p {
   color: var(--muted);
 }
 
 /* FOOTER */
 footer {
-  margin-top: 150px;
+  margin-top: 160px;
   font-size: 12px;
   color: var(--muted);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
