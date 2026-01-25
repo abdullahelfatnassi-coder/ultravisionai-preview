@@ -2,8 +2,9 @@ const glass = document.querySelector(".glass");
 const scene = document.querySelector(".scene");
 const boot = document.getElementById("boot");
 const toggle = document.getElementById("visionToggle");
+const form = document.getElementById("accessForm");
 
-/* BOOT REVEAL */
+/* BOOT */
 setTimeout(() => {
   boot.remove();
   scene.classList.remove("hidden");
@@ -21,7 +22,6 @@ window.addEventListener("mousemove", (e) => {
   `;
 });
 
-/* RESET */
 window.addEventListener("mouseleave", () => {
   glass.style.transform = "rotateX(0deg) rotateY(0deg)";
 });
@@ -32,4 +32,32 @@ toggle.addEventListener("click", () => {
   toggle.textContent = document.body.classList.contains("vision")
     ? "Disable Vision Pro Mode"
     : "Enable Vision Pro Mode";
+});
+
+/* FORMSPREE — CLEAN SUBMIT */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+
+  document.body.style.transition = "all 1.2s ease";
+  document.body.style.filter = "blur(14px)";
+  document.body.style.opacity = "0";
+
+  try {
+    await fetch(form.action, {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" },
+    });
+
+    setTimeout(() => {
+      document.body.style.filter = "none";
+      document.body.style.opacity = "1";
+      alert("Access request received.\nUltravision AI is initializing.");
+      form.reset();
+    }, 900);
+  } catch (err) {
+    alert("Submission failed. Try again.");
+  }
 });
