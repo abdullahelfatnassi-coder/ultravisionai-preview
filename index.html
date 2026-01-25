@@ -7,25 +7,36 @@
     <title>Ultravision AI</title>
     <meta
       name="description"
-      content="Ultravision AI is a private intelligence system focused on perception, context, and real‑world understanding."
+      content="A private perception system designed to interpret reality before it is explained."
     />
 
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div id="app">
-      <div class="hero">
-        <div class="glass">
-          <h1>Ultravision AI</h1>
-          <p>
-            A next‑generation perception system.<br />
-            Private. Intelligent. Precise.
-          </p>
+    <div class="bg"></div>
 
-          <button id="enterBtn">Tap to Enter</button>
-        </div>
+    <main class="scene">
+      <div class="glass">
+        <h1>Ultravision AI</h1>
+
+        <p class="statement">
+          A private perception system designed to interpret reality<br />
+          before it is explained.
+        </p>
+
+        <form id="accessForm">
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter email for early access"
+            required
+          />
+          <button type="submit">Request Access</button>
+        </form>
+
+        <span class="meta">Early access · Limited</span>
       </div>
-    </div>
+    </main>
 
     <script src="app.js"></script>
   </body>
