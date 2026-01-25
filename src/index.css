@@ -15,6 +15,49 @@ body {
   overflow: hidden;
 }
 
+/* SYSTEM BOOT */
+#boot {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: bootFade 2.6s ease forwards;
+}
+
+.boot-text {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes bootFade {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 /* CINEMATIC BACKGROUND */
 .bg {
   position: fixed;
@@ -56,6 +99,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 1.2s ease;
+}
+
+.hidden {
+  opacity: 0;
 }
 
 /* GLASS CORE */
@@ -68,18 +116,6 @@ body {
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
-  animation: appear 1.2s ease forwards;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 h1 {
