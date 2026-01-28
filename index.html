@@ -1,55 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Ultravision AI</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Ultravision AI is a private intelligence system focused on perception, context, and real‑world understanding."
-  />
-
-  <link rel="stylesheet" href="index.css" />
-</head>
-<body>
-
-  <!-- Background -->
-  <div class="bg"></div>
-
-  <!-- Main Container -->
-  <main class="container">
-    <span class="eyebrow">PRIVATE INTELLIGENCE</span>
-
-    <h1>Ultravision AI</h1>
-
-    <p class="subtitle">
-      A private intelligence system designed<br/>
-      to interpret reality before it is explained.
-    </p>
-
-    <!-- Email Capture -->
-    <form
-      class="email-form"
-      action="https://formspree.io/f/YOUR_FORM_ID"
-      method="POST"
-    >
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter your email for early access"
-        required
-      />
-      <button type="submit">Request Access</button>
-    </form>
-
-    <!-- Toggles -->
-    <div class="controls">
-      <button id="visionToggle">Enable Vision Pro Mode</button>
-      <span class="status">Early access · Limited</span>
-    </div>
-  </main>
-
-  <script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultravision AI</title>
+    <meta
+      name="description"
+      content="Ultravision AI is a private intelligence system focused on perception, context, and real‑world understanding."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
