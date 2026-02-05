@@ -2,79 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Ultravision AI</title>
-
-  <meta
-    name="description"
-    content="Ultravision AI is a private intelligence system designed for perception, contextual awareness, and real‑world understanding."
-  />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
 </head>
-
 <body>
 
   <!-- LOCK SCREEN -->
   <div class="lock" id="lock">
     <div class="lock-inner">
       <div class="lock-label">PRIVATE SYSTEM</div>
-      <span class="lock-title">ULTRAVISION AI</span>
+      <span class="lock-title">TAP TO CONTINUE</span>
     </div>
   </div>
 
-  <!-- MAIN APP -->
-  <div class="app" id="app">
+  <!-- APP -->
+  <main class="app" id="app">
+    <section class="hero">
+      <h1>Ultravision AI</h1>
+      <p>
+        A private intelligence system designed for perception,
+        contextual awareness, and real‑world understanding.
+      </p>
+    </section>
 
-    <main class="stage">
+    <section class="capabilities">
+      <div>Real‑time perception engine</div>
+      <div>Contextual reasoning core</div>
+      <div>Private, offline‑first intelligence</div>
+      <div>Vision‑centric system design</div>
+    </section>
 
-      <!-- HERO -->
-      <section class="hero">
-        <h1>Ultravision AI</h1>
-        <p>
-          A private intelligence system designed for perception,
-          contextual awareness, and real‑world understanding.
-        </p>
-      </section>
+    <section class="access">
+      <form>
+        <input type="email" placeholder="Enter email for early access" />
+        <button type="submit">Request Access</button>
+      </form>
+      <p class="confirmed">Early access · Private system</p>
+    </section>
 
-      <!-- CAPABILITIES -->
-      <section class="capabilities">
-        <div>Real‑time perception engine</div>
-        <div>Contextual reasoning core</div>
-        <div>Private, offline‑first intelligence</div>
-        <div>Vision‑centric system design</div>
-      </section>
-
-      <!-- ACCESS -->
-      <section class="access">
-        <form>
-          <input
-            type="email"
-            placeholder="Enter email for early access"
-            required
-          />
-          <button type="submit">REQUEST ACCESS</button>
-        </form>
-      </section>
-
-    </main>
-
-    <!-- FOOTER -->
     <footer>
-      <div>Ultravision AI</div>
-      <div>Private System · Early Access</div>
+      <span>Ultravision AI</span>
+      <span>Private Intelligence</span>
     </footer>
+  </main>
 
-  </div>
-
-  <!-- SCRIPT -->
   <script>
     const lock = document.getElementById("lock");
     const app = document.getElementById("app");
 
     lock.addEventListener("click", () => {
-      lock.style.display = "none";
+      lock.style.opacity = "0";
+      setTimeout(() => lock.remove(), 600);
       app.classList.add("unlocked");
     });
   </script>
