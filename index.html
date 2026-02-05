@@ -4,52 +4,265 @@
   <meta charset="UTF-8" />
   <title>Ultravision AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Premium Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050507;
+      --fg: #ffffff;
+      --muted: rgba(255,255,255,0.55);
+      --line: rgba(255,255,255,0.08);
+      --accent: #7c7cff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, system-ui, -apple-system;
+      overflow-x: hidden;
+    }
+
+    /* LOCK SCREEN */
+    .lock {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: grid;
+      place-items: center;
+      z-index: 100;
+      transition: opacity 1.2s ease;
+    }
+
+    .lock.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .lock-inner {
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lock-label {
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      opacity: 0.5;
+    }
+
+    .lock-title {
+      display: block;
+      margin-top: 18px;
+      font-size: 30px;
+      letter-spacing: 0.08em;
+    }
+
+    /* APP */
+    .app {
+      min-height: 100vh;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 1.6s ease, transform 2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .app.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .stage {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 140px 32px;
+    }
+
+    /* HERO */
+    .hero h1 {
+      font-size: 68px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: var(--muted);
+      margin-top: 28px;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* FEATURES */
+    .features {
+      margin-top: 140px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .feature {
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      font-size: 15px;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    /* ACCESS */
+    .access {
+      margin-top: 160px;
+    }
+
+    .access h2 {
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    form {
+      margin-top: 32px;
+      max-width: 360px;
+    }
+
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+      color: var(--fg);
+      font-size: 16px;
+    }
+
+    input::placeholder {
+      color: var(--muted);
+    }
+
+    input:focus {
+      outline: none;
+      border-bottom-color: #fff;
+    }
+
+    button {
+      margin-top: 28px;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--fg);
+      padding: 14px 28px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color .3s ease;
+    }
+
+    button:hover {
+      border-color: #fff;
+    }
+
+    .confirmed {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      display: none;
+    }
+
+    footer {
+      margin-top: 160px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
 
   <!-- LOCK SCREEN -->
-  <div class="lock">
+  <div class="lock" id="lock">
     <div class="lock-inner">
       <div class="lock-label">PRIVATE SYSTEM</div>
-      <span class="lock-title">Tap to Continue</span>
+      <span class="lock-title">ULTRAVISION AI</span>
     </div>
   </div>
 
-  <!-- APP -->
-  <div class="app">
+  <!-- MAIN APP -->
+  <div class="app" id="app">
     <div class="stage">
 
       <section class="hero">
         <h1>Ultravision AI</h1>
         <p>
-          A private intelligence system designed for perception,
+          A private intelligence system engineered for perception,
           contextual awareness, and real‑world understanding.
+          Designed as a vision‑centric, offline‑first architecture.
         </p>
       </section>
 
-      <section class="capabilities">
-        <div>Real‑time perception engine</div>
-        <div>Contextual reasoning core</div>
-        <div>Offline‑first private intelligence</div>
-        <div>Vision‑centric system design</div>
+      <section class="features">
+        <div class="feature">
+          <strong>Real‑time perception engine</strong>
+          Multi‑modal visual reasoning with low‑latency inference.
+        </div>
+        <div class="feature">
+          <strong>Contextual intelligence core</strong>
+          Persistent state awareness beyond frame‑based vision.
+        </div>
+        <div class="feature">
+          <strong>Private by design</strong>
+          No cloud dependency. No data leakage. Full user control.
+        </div>
+        <div class="feature">
+          <strong>System‑level integration</strong>
+          Designed to operate as infrastructure, not an app.
+        </div>
       </section>
 
       <section class="access">
-        <form>
-          <input type="email" placeholder="Request access" />
-          <button type="submit">Submit</button>
+        <h2>Request Access</h2>
+        <form id="accessForm">
+          <input type="email" placeholder="Email address" required />
+          <button type="submit">Submit Request</button>
+          <div class="confirmed">Request received. We will be in touch.</div>
         </form>
       </section>
 
-    </div>
+      <footer>
+        <span>Ultravision AI</span>
+        <span>Private System · 2026</span>
+      </footer>
 
-    <footer>
-      <span>Ultravision AI</span>
-      <span>Private System</span>
-    </footer>
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const lock = document.getElementById("lock");
+    const app = document.getElementById("app");
+
+    lock.addEventListener("click", () => {
+      lock.classList.add("hidden");
+      app.classList.add("visible");
+    });
+
+    const form = document.getElementById("accessForm");
+    const confirmed = document.querySelector(".confirmed");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      confirmed.style.display = "block";
+      form.reset();
+    });
+  </script>
+
 </body>
 </html>
