@@ -1,15 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #050507;
+  --fg: #ffffff;
+  --muted: rgba(255, 255, 255, 0.55);
+  --line: rgba(255, 255, 255, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
 
-html,
 body {
   margin: 0;
-  padding: 0;
-  background: #050508;
-  color: #eaeaf0;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
-    Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Inter, system-ui, -apple-system;
 }
 
 .app {
@@ -17,109 +23,48 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.app.loaded {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.glow {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle,
-    rgba(140, 120, 255, 0.18),
-    transparent 70%
-  );
-  filter: blur(120px);
-  top: -200px;
-  right: -200px;
 }
 
 .hero {
   max-width: 720px;
-  padding: 48px;
-  text-align: left;
-  z-index: 1;
+  padding: 120px 32px;
 }
 
-.boot {
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #8b8b9c;
-  margin-bottom: 16px;
-}
-
-h1 {
+.hero h1 {
   font-size: 64px;
   font-weight: 600;
-  margin: 0 0 16px 0;
   letter-spacing: -0.02em;
 }
 
-.subtitle {
+.hero p {
+  margin-top: 24px;
   font-size: 18px;
   line-height: 1.6;
-  color: #b5b5c7;
-  margin-bottom: 40px;
+  color: var(--muted);
 }
 
-.form {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+.features {
+  margin-top: 48px;
+  padding: 0;
+  list-style: none;
 }
 
-input {
-  flex: 1;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  color: white;
+.features li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
   font-size: 15px;
 }
 
-input::placeholder {
-  color: #8c8c9a;
-}
-
-button {
-  padding: 14px 22px;
-  border-radius: 10px;
-  border: none;
-  font-size: 15px;
-  font-weight: 500;
+.cta {
+  margin-top: 48px;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 14px 28px;
+  font-size: 14px;
   cursor: pointer;
-  background: linear-gradient(135deg, #7f6cff, #a48bff);
-  color: #050508;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.secondary {
-  background: transparent;
-  color: #cfcfe8;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.note {
-  font-size: 13px;
-  color: #8b8b9c;
+.cta:hover {
+  border-color: #fff;
 }
