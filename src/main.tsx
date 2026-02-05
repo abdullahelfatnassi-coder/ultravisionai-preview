@@ -1,11 +1,10 @@
-const toggle = document.getElementById("visionToggle");
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("vision");
-
-  if (document.body.classList.contains("vision")) {
-    toggle.textContent = "Disable Vision Pro Mode";
-  } else {
-    toggle.textContent = "Enable Vision Pro Mode";
-  }
-});
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
