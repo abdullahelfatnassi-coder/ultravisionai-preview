@@ -1,12 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ultravision AI</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/ultravisionai-preview/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ultravision AI</title>
+
+  <meta
+    name="description"
+    content="Ultravision AI is a private intelligence system designed for perception, contextual awareness, and real‑world understanding."
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- LOCK SCREEN -->
+  <div class="lock" id="lock">
+    <div class="lock-inner">
+      <div class="lock-label">PRIVATE SYSTEM</div>
+      <span class="lock-title">ULTRAVISION AI</span>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div class="app" id="app">
+
+    <main class="stage">
+
+      <!-- HERO -->
+      <section class="hero">
+        <h1>Ultravision AI</h1>
+        <p>
+          A private intelligence system designed for perception,
+          contextual awareness, and real‑world understanding.
+        </p>
+      </section>
+
+      <!-- CAPABILITIES -->
+      <section class="capabilities">
+        <div>Real‑time perception engine</div>
+        <div>Contextual reasoning core</div>
+        <div>Private, offline‑first intelligence</div>
+        <div>Vision‑centric system design</div>
+      </section>
+
+      <!-- ACCESS -->
+      <section class="access">
+        <form>
+          <input
+            type="email"
+            placeholder="Enter email for early access"
+            required
+          />
+          <button type="submit">REQUEST ACCESS</button>
+        </form>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>Ultravision AI</div>
+      <div>Private System · Early Access</div>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const lock = document.getElementById("lock");
+    const app = document.getElementById("app");
+
+    lock.addEventListener("click", () => {
+      lock.style.display = "none";
+      app.classList.add("unlocked");
+    });
+  </script>
+
+</body>
 </html>
