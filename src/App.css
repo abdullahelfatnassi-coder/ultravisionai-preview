@@ -1,149 +1,92 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
-
-:root {
-  --bg: #050507;
-  --fg: #ffffff;
-  --muted: rgba(255, 255, 255, 0.55);
-  --line: rgba(255, 255, 255, 0.08);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: Inter, system-ui, -apple-system;
-}
-
-/* LOCK SCREEN */
-.lock {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  display: grid;
-  place-items: center;
-  z-index: 10;
-}
-
-.lock-inner {
-  text-align: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.lock-label {
-  font-size: 12px;
-  letter-spacing: 0.4em;
-  opacity: 0.5;
-}
-
-.lock-title {
-  display: block;
-  margin-top: 16px;
-  font-size: 28px;
-  letter-spacing: 0.08em;
-}
-
-/* APP STAGE */
 .app {
   min-height: 100vh;
-  transform: scale(1.45);
-  opacity: 0;
-  transition:
-    transform 2s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 1.6s ease;
+  background: #050507;
+  color: white;
+  font-family: Inter, system-ui, -apple-system;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.app.unlocked {
-  transform: scale(1);
-  opacity: 1;
+.fade-in {
+  animation: fade 1.6s ease forwards;
 }
 
-.stage {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 120px 32px;
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* HERO */
+.lock {
+  position: absolute;
+  top: 40px;
+  letter-spacing: 0.4em;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.hero {
+  max-width: 720px;
+  text-align: left;
+}
+
 .hero h1 {
   font-size: 64px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  margin-bottom: 24px;
 }
 
 .hero p {
-  max-width: 560px;
-  color: var(--muted);
-  margin-top: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
   line-height: 1.6;
 }
 
-/* CAPABILITIES */
-.capabilities {
-  margin-top: 120px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+.features {
+  margin-top: 32px;
+  list-style: none;
+  padding: 0;
 }
 
-.capabilities div {
-  padding: 24px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 15px;
+.features li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ACCESS */
 .access {
-  margin-top: 120px;
+  margin-top: 40px;
 }
 
-form {
-  max-width: 360px;
-}
-
-input {
+.access input {
   width: 100%;
+  padding: 14px 0;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--line);
-  padding: 16px 0;
-  color: var(--fg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
   font-size: 16px;
 }
 
-input::placeholder {
-  color: var(--muted);
-}
-
-input:focus {
+.access input:focus {
   outline: none;
-  border-bottom-color: #fff;
+  border-color: white;
 }
 
-button {
+.access button {
   margin-top: 24px;
-  background: none;
-  border: 1px solid var(--line);
-  color: var(--fg);
-  padding: 14px 24px;
-  font-size: 14px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 14px 28px;
   cursor: pointer;
 }
 
-button:hover {
-  border-color: #fff;
-}
-
-/* FOOTER */
-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 32px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  color: var(--muted);
+.access button:hover {
+  border-color: white;
 }
