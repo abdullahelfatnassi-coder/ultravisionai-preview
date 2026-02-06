@@ -2,56 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ultravision AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultravision AI</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css" />
 </head>
 <body>
 
-  <!-- LOCK SCREEN -->
-  <div class="lock" id="lock">
-    <div class="lock-inner">
-      <div class="lock-label">PRIVATE SYSTEM</div>
-      <span class="lock-title">Tap to Continue</span>
+  <!-- INTRO SCREEN -->
+  <div id="intro">
+    <div class="intro-content">
+      <h1>ULTRAVISION AI</h1>
+      <p>Private Intelligence System</p>
+      <span class="tap">Tap to continue</span>
     </div>
   </div>
 
-  <!-- APP -->
-  <div class="app" id="app">
-    <main class="stage">
-      <section class="hero">
-        <h1>Ultravision AI</h1>
-        <p>
-          A private intelligence system designed for perception, contextual awareness,
-          and real‑world understanding.
-        </p>
-      </section>
+  <!-- MAIN CONTENT -->
+  <main id="main">
+    <section class="hero">
+      <span class="label">PRIVATE SYSTEM</span>
+      <h2>Ultravision AI</h2>
+      <p class="subtitle">
+        A private intelligence system designed for perception,
+        contextual awareness, and real‑world understanding.
+      </p>
 
-      <section class="capabilities">
-        <div>Real‑time perception engine</div>
-        <div>Contextual reasoning core</div>
-        <div>Private, offline‑first intelligence</div>
-        <div>Vision‑centric system design</div>
-      </section>
+      <ul class="features">
+        <li>Real‑time perception engine</li>
+        <li>Contextual reasoning core</li>
+        <li>Private, offline‑first intelligence</li>
+        <li>Vision‑centric system design</li>
+      </ul>
 
-      <section class="access">
-        <form>
-          <input type="email" placeholder="Request private access" />
-          <button type="button">Request Access</button>
-        </form>
-      </section>
-    </main>
+      <form class="access">
+        <input type="email" placeholder="Enter email for early access" required />
+        <button type="submit">Request Access</button>
+      </form>
 
-    <footer>
-      <span>Ultravision AI</span>
-      <span>Private System</span>
-    </footer>
-  </div>
+      <footer>
+        Ultravision AI · Private System · Early Access
+      </footer>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
