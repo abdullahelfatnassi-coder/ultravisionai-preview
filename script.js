@@ -1,11 +1,10 @@
-const lock = document.querySelector(".lock");
-const app = document.querySelector(".app");
+const intro = document.getElementById("intro");
+const main = document.getElementById("main");
 
-lock.addEventListener("click", () => {
-  lock.style.opacity = "0";
+intro.addEventListener("click", () => {
+  intro.style.opacity = "0";
   setTimeout(() => {
-    lock.style.display = "none";
-    app.classList.add("unlocked");
+    intro.style.display = "none";
+    main.style.display = "block";
   }, 600);
 });
-
